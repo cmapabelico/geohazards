@@ -204,15 +204,26 @@
                     })
                 })
             });
-
+//==============================================================================================================
             var geoJSON = new OpenLayers.Format.GeoJSON();
+            var var_from_php_1 = document.getElementById('container').innerHTML;
+            var var_from_php_2 = document.getElementById('container2').innerHTML;
+            var valid, prevFlashFeatures;
 
-            var var_from_php = document.getElementById('container').innerHTML;
-            var valid = JSON.stringify(eval("("+var_from_php+")"));
-            var prevFlashFeatures = getJSONdata(valid);
+            if(var_from_php_1){
+                valid = JSON.stringify(eval("("+var_from_php_1+")"));
+                prevFlashFeatures = getJSONdata(valid);
            
-            flashFloodLayer.addFeatures(prevFlashFeatures);
+                flashFloodLayer.addFeatures(prevFlashFeatures);
+            }
 
+            if(var_from_php_2){
+                valid = JSON.stringify(eval("("+var_from_php_2+")"));
+                prevFlashFeatures = getJSONdata(valid);
+           
+                flashFloodLayer.addFeatures(prevFlashFeatures);
+            }
+//==============================================================================================================
             map.addLayers([flashFloodLayer, coastalFloodLayer, urbanFloodLayer, fluvialLayer, pluvialLayer, landslideLayer, faultsLayer, volcanicLayer, tsunamiLayer]);
             map.addControl(new OpenLayers.Control.LayerSwitcher());
             map.addControl(new OpenLayers.Control.MousePosition());
@@ -349,18 +360,7 @@
                 var lonLat = new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject());
                 map.setCenter (lonLat, zoom);
             }
-//=============================================================================================================================
-
-            //var features_ff = geoJSON.read(var_from_php);
-
-            /*if(features_ff.contructor != Array){
-                features_ff = [features_ff];
-            }
-
-            flashFloodLayer.addFeatures(features_ff);
-            map.addLayers([features_ff]);*/
-
-//=============================================================================================================================
+//=========================================================================================
 
             document.getElementById('button').onclick = function(){
                 var geoJSON = new OpenLayers.Format.GeoJSON();
@@ -368,7 +368,7 @@
                 window.location.href = "http://localhost/osm/geohazards.php?json="+json;
             }  
         }
-//=============================================================================================================================
+//=========================================================================================
         function allowPan(element){
             var stop = !element.checked;
             for(var key in drawControls){
@@ -481,6 +481,17 @@
             control = drawControls[key];
             control.activate();
         }
+
+        function toggleControl(element) {
+                for(key in drawControls) {
+                    var control = drawControls[key];
+                    if(element.value == key && element.checked) {
+                        control.activate();
+                    } else {
+                        control.deactivate();
+                    }
+                }
+            }
 
         function getJSONdata(valid){
             var geoJSON = new OpenLayers.Format.GeoJSON(); 

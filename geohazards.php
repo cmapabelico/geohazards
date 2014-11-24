@@ -1,5 +1,28 @@
 <html>
 <?php
+    $dbhost = 'localhost';
+    $dbuser = 'root';
+    $dbpass = 'password';
+    $conn = mysql_connect($dbhost, $dbuser, $dbpass);
+    mysql_select_db('geohazards');
+
+    if(!$conn){
+            die('Could not connect:' .mysql_error());
+    }
+    /* Loads stored json string from the database
+     * from the tables, then clears the content of the tables;
+     */
+    $load_data = "SELECT json_string FROM flashflood_data WHERE id = 1";
+    $sql_1 = mysql_query($load_data,$conn); 
+    if(!$sql_1){
+        die('Could not pull data'.mysql_error());
+    }else{
+        while($row = mysql_fetch_array($sql_1, MYSQL_ASSOC)){
+            $feature =$row['json_string'];
+        }
+        $clear_table = "TRUNCATE flashflood_data";
+        $sql_2 = mysql_query($clear_table, $conn);
+    }
 
    $json = ($_GET['json']);
    $var = strcmp($json, "{\"type\":\"FeatureCollection\",\"features\":[]}");
@@ -14,32 +37,16 @@
    if(!$conn){
             die('Could not connect:' .mysql_error());
     }
-
-    $load_data = "SELECT json_string FROM flashflood_data WHERE id = 1";
-    $sql_1 = mysql_query($load_data,$conn); 
-    if(!$sql_1){
-        die('Could not pull data'.mysql_error());
-    }else{
-        while($row = mysql_fetch_array($sql_1, MYSQL_ASSOC)){
-            $feature =$row['json_string'];
-        }
-        $clear_table = "TRUNCATE flashflood_data";
-        $sql_2 = mysql_query($clear_table, $conn);
-    }
+//=====================================================================================
     
    if($var == 0 || $var < 0){
     $json = NULL; 
    }else{
-
+        $feature2 = $json;
         $sql = "INSERT INTO flashflood_data (json_string) VALUES ('$json')";
-
         $retval = mysql_query($sql, $conn);
-
         if(! $retval){
             die('Could not enter data:'. mysql_error());
-        }else{
-            $json = "";
-            //echo 'Entered data successfully';
         }
         mysql_close($conn);
    }
@@ -137,6 +144,7 @@
        
     </div>
     <p id="container"><?php echo $feature; ?></p>
+    <p id="container2"><?php echo $feature2; ?></p>
  
 </body>
  
