@@ -32,6 +32,7 @@ if($count==1){
 // Register $userid, $mypassword and redirect to file "geohazards.php"
 	$_SESSION['userid'] = $userid;
 	$_SESSION['mypassword'] = $mypassword;
+	$_SESSION['loadflag'] = 0;
 	 session_write_close();                       
 
 	header("location:geohazards.php");

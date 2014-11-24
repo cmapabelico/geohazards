@@ -18,17 +18,19 @@
     /* Loads stored json string from the database
      * from the tables, then clears the content of the tables;
      */
-    /*$load_data = "SELECT json_string FROM flashflood_data WHERE id = 1";
-    $sql_1 = mysql_query($load_data,$conn); 
-    if(!$sql_1){
-        die('Could not pull data'.mysql_error());
-    }else{
-        while($row = mysql_fetch_array($sql_1, MYSQL_ASSOC)){
-            $feature =$row['json_string'];
+    if($_SESSION['loadflag'] == 0){
+        $load_data = "SELECT json_string FROM flashflood_data WHERE id = 1";
+        $sql_1 = mysql_query($load_data,$conn); 
+        if(!$sql_1){
+            die('Could not pull data'.mysql_error());
+        }else{
+            while($row = mysql_fetch_array($sql_1, MYSQL_ASSOC)){
+                $feature =$row['json_string'];
+            }
         }
-        $clear_table = "TRUNCATE flashflood_data";
-        $sql_2 = mysql_query($clear_table, $conn);
-    }*/
+
+        $_SESSION['loadflag'] = 1;
+    }
     $clear_table = "TRUNCATE flashflood_data";
     $sql_2 = mysql_query($clear_table, $conn);
 
