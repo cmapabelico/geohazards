@@ -208,6 +208,7 @@
             var geoJSON = new OpenLayers.Format.GeoJSON();
             var var_from_php_1 = document.getElementById('container').innerHTML;
             var var_from_php_2 = document.getElementById('container2').innerHTML;
+            var flag1 = document.getElementById('flag1').innerHTML;
             var valid, prevFlashFeatures;
 
             if(var_from_php_1){
@@ -366,7 +367,11 @@
                 var geoJSON = new OpenLayers.Format.GeoJSON();
                 json = geoJSON.write(flashFloodLayer.features);
                 window.location.href = "http://localhost/osm/geohazards.php?json="+json;
-            }  
+            } 
+
+            document.getElementById('logout').onclick = function(){
+                location.href = "geohazards_guest.php";
+            } 
         }
 //=========================================================================================
         function allowPan(element){

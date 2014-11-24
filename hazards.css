@@ -43,29 +43,25 @@ div.editPanelFlash{
 	}
 .saveButtonItemActive {background-position: 0px -299px; }
 .saveButtonItemInactive {background-position: 0px -276px;}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	%;
-}
-
 .geo-type{
 	float: left;
 }
 
 #details{
 	float: left;
+}
+
+#guest-footer{
+	height: 10%;
+	width: 100%;
+	position: relative;
+	background: #8A0808;
+	margin: 0px;
+	padding: 0px;
+}
+
+#login{
+	float: right;
+	margin-top: 20px;
+	margin-right: 20px;
 }

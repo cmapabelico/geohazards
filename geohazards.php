@@ -1,3 +1,9 @@
+<?php session_start();
+    /*if(!isset($_SESSION['userid'])){
+        header("location:geohazards_guest.php");
+    }*/
+?>
+
 <html>
 <?php
     $dbhost = 'localhost';
@@ -12,7 +18,7 @@
     /* Loads stored json string from the database
      * from the tables, then clears the content of the tables;
      */
-    $load_data = "SELECT json_string FROM flashflood_data WHERE id = 1";
+    /*$load_data = "SELECT json_string FROM flashflood_data WHERE id = 1";
     $sql_1 = mysql_query($load_data,$conn); 
     if(!$sql_1){
         die('Could not pull data'.mysql_error());
@@ -22,21 +28,12 @@
         }
         $clear_table = "TRUNCATE flashflood_data";
         $sql_2 = mysql_query($clear_table, $conn);
-    }
+    }*/
+    $clear_table = "TRUNCATE flashflood_data";
+    $sql_2 = mysql_query($clear_table, $conn);
 
    $json = ($_GET['json']);
    $var = strcmp($json, "{\"type\":\"FeatureCollection\",\"features\":[]}");
-   
-
-   $dbhost = 'localhost';
-   $dbuser = 'root';
-   $dbpass = 'password';
-   $conn = mysql_connect($dbhost, $dbuser, $dbpass);
-   mysql_select_db('geohazards');
-
-   if(!$conn){
-            die('Could not connect:' .mysql_error());
-    }
 //=====================================================================================
     
    if($var == 0 || $var < 0){
@@ -47,6 +44,8 @@
         $retval = mysql_query($sql, $conn);
         if(! $retval){
             die('Could not enter data:'. mysql_error());
+        }else{
+            $flag1 = "1";
         }
         mysql_close($conn);
    }
@@ -89,7 +88,7 @@
             <h4>Draw</h4>
             <form name="feature-type" id="controlToggle">
                 <li>
-                    <input type="radio" name="type" value="none" id="noneToggle" checked="checked" />
+                    <input type="radio" name="type" value="none" id="noneToggle" onclick="toggleControl(this);" checked="checked" />
                     <label for="noneToggle">navigate</label>
                 </li>
                 <li>
@@ -134,17 +133,22 @@
             </div>
         </div>
         <div class="inner" id="btn-panel">
+
             <button type="button" class="btn btn-danger btn-lg" onclick="addToMap();">
                  <span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Add to Map
             </button>
             <button type="submit" class="btn btn-default btn-lg" id="button">
                  <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Save Map
             </button>
+            <button type="button" class="btn btn-primary btn-lg" id="logout">
+                 <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout
+            </button>
         </div>
        
     </div>
     <p id="container"><?php echo $feature; ?></p>
     <p id="container2"><?php echo $feature2; ?></p>
+    <p id="flag1"><?php echo $flag1; ?></p>
  
 </body>
  
