@@ -82,20 +82,19 @@
             <h4>Draw</h4>
             <form name="feature-type" id="controlToggle">
                 <li>
-                    <input type="radio" name="type" value="none" id="noneToggle"
-                           onclick="toggleControl(this);" checked="checked" />
+                    <input type="radio" name="type" value="none" id="noneToggle" checked="checked" />
                     <label for="noneToggle">navigate</label>
                 </li>
                 <li>
-                    <input type="radio" name="type" value="point" id="pointToggle" onclick="toggleControl(this);" />
+                    <input type="radio" name="type" value="point" id="pointToggle" />
                     <label for="pointToggle">draw point</label>
                 </li>
                 <li>
-                    <input type="radio" name="type" value="line" id="lineToggle" onclick="toggleControl(this);" />
+                    <input type="radio" name="type" value="line" id="lineToggle" />
                     <label for="lineToggle">draw line</label>
                  </li>
                 <li>
-                    <input type="radio" name="type" value="polygon" id="polygonToggle" onclick="toggleControl(this);" />
+                    <input type="radio" name="type" value="polygon" id="polygonToggle"/>
                     <label for="polygonToggle">draw polygon</label>
                 </li>
                <!-- <li>

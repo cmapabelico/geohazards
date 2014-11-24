@@ -205,10 +205,13 @@
                 })
             });
 
+            var geoJSON = new OpenLayers.Format.GeoJSON();
+
             var var_from_php = document.getElementById('container').innerHTML;
-            //alert(var_from_php);
-            var prevFlashFeatures = getJSONdata(var_from_php);
-            //flashFloodLayer.addFeatures(prevFlashFeatures);
+            var valid = JSON.stringify(eval("("+var_from_php+")"));
+            var prevFlashFeatures = getJSONdata(valid);
+           
+            flashFloodLayer.addFeatures(prevFlashFeatures);
 
             map.addLayers([flashFloodLayer, coastalFloodLayer, urbanFloodLayer, fluvialLayer, pluvialLayer, landslideLayer, faultsLayer, volcanicLayer, tsunamiLayer]);
             map.addControl(new OpenLayers.Control.LayerSwitcher());
@@ -479,9 +482,13 @@
             control.activate();
         }
 
-        function getJSONdata(var_from_php){
-            var geoJSON = new OpenLayers.Format.GeoJSON();
-            return geoJSON.read(var_from_php);
+        function getJSONdata(valid){
+            var geoJSON = new OpenLayers.Format.GeoJSON(); 
+            var features_ff = geoJSON.read(valid,"FeatureCollection");
+            /*if(features_ff.contructor != Array){
+                features_ff = [features_ff];
+            }*/
+            return features_ff;
         }
 
 DeleteFeature = OpenLayers.Class(OpenLayers.Control,{
@@ -509,4 +516,3 @@ DeleteFeature = OpenLayers.Class(OpenLayers.Control,{
     },
     CLASS_NAME: "OpenLayers.Control.DeleteFeature"
 })
-getJSON
