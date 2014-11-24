@@ -1,0 +1,71 @@
+body{
+	overflow:hidden;
+}
+.menu{
+	height:25%;
+	width: 100%;
+	background: #8A0808;
+	position: relative;
+	margin: 0px;
+	padding: 0px;
+}
+
+.inner{
+	float: left;
+	margin:5px;
+	height:95%;
+}
+#feature-type{
+	width:20%;
+}
+
+#geo-type{
+	width:260px;
+}
+
+#form-group{
+	float:left;
+}
+#details{
+	width:30%;
+}
+
+div.editPanelFlash{
+	top: 100px;
+	left:50px;
+	position:absolute;
+}
+	.editPanelFlash div{
+		width: 22px;
+		height: 22px;
+		border: thin solid black;
+		margin-top: 10px;
+	}
+.saveButtonItemActive {background-position: 0px -299px; }
+.saveButtonItemInactive {background-position: 0px -276px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	%;
+}
+
+.geo-type{
+	float: left;
+}
+
+#details{
+	float: left;
+}
