@@ -7,7 +7,8 @@
  
         //Initialise the 'map' object
         function init() {
- 
+            var json;
+            var count = 0;
             map = new OpenLayers.Map ("map", {
                 controls:[
                     new OpenLayers.Control.Navigation(),
@@ -344,7 +345,7 @@
 
             document.getElementById('button').onclick = function(){
                 var geoJSON = new OpenLayers.Format.GeoJSON();
-                var json = geoJSON.write(flashFloodLayer.features);
+                json = geoJSON.write(flashFloodLayer.features);
                 window.location.href = "http://localhost/osm/geohazards.php?json="+json;
             }  
             

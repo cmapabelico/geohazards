@@ -20,10 +20,8 @@
         $xdata = $row['json_string'];
     } 
 
-    
-
    if($var == 0 || $var < 0){
-    $json = null; 
+    $json = NULL; 
    }else{
 
         $sql = "INSERT INTO flashflood_data (json_string) VALUES ('$json')";
@@ -33,9 +31,7 @@
         if(! $retval){
             die('Could not enter data:'. mysql_error());
         }else{
-            $load_count++;
             echo 'Entered data successfully';
-
         }
         mysql_close($conn);
    }
