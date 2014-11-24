@@ -1,8 +1,9 @@
+<html>
 <?php
 
    $json = ($_GET['json']);
    $var = strcmp($json, "{\"type\":\"FeatureCollection\",\"features\":[]}");
-   $load_count = ($_GET['load_count']);
+   
 
    $dbhost = 'localhost';
    $dbuser = 'root';
@@ -16,10 +17,16 @@
 
     $load_data = "SELECT json_string FROM flashflood_data WHERE id = 1";
     $sql_1 = mysql_query($load_data,$conn); 
-    while($row = mysql_fetch_array($sql_1, MYSQL_ASSOC)){
-        $xdata = $row['json_string'];
-    } 
-
+    if(!$sql_1){
+        die('Could not pull data'.mysql_error());
+    }else{
+        while($row = mysql_fetch_array($sql_1, MYSQL_ASSOC)){
+            $feature =$row['json_string'];
+        }
+        $clear_table = "TRUNCATE flashflood_data";
+        $sql_2 = mysql_query($clear_table, $conn);
+    }
+    
    if($var == 0 || $var < 0){
     $json = NULL; 
    }else{
@@ -31,14 +38,13 @@
         if(! $retval){
             die('Could not enter data:'. mysql_error());
         }else{
-            echo 'Entered data successfully';
+            $json = "";
+            //echo 'Entered data successfully';
         }
         mysql_close($conn);
    }
 
  ?>
-
-<html>
 <head>
     <title>Geohazards layer</title>
     <!--<link rel="stylesheet" href="style.css" type="text/css" />-->
@@ -68,7 +74,7 @@
  
 <!-- body.onload is called once the page is loaded (call the 'init' function) -->
 <body onload="init();">
-   
+    
     <!-- define a DIV into which the map will appear. Make it take up the whole window -->
     <div style="width:100%; height:75%;" id="map"></div>
     <div class="menu" id="menu-ui">
@@ -131,6 +137,7 @@
         </div>
        
     </div>
+    <p id="container"><?php echo $feature; ?></p>
  
 </body>
  

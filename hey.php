@@ -9,7 +9,7 @@
   <body>
     <script>
       var js_var = "<?php echo $php_var; ?>";
-        alert(js_var);
+      alert(js_var);
     </script>
   </body>
 </html>

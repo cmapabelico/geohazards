@@ -7,8 +7,8 @@
  
         //Initialise the 'map' object
         function init() {
-            var json;
-            var count = 0;
+          
+            
             map = new OpenLayers.Map ("map", {
                 controls:[
                     new OpenLayers.Control.Navigation(),
@@ -106,6 +106,8 @@
                     })
                 })
             });
+//=======================================================================================================================
+
             var coastalFloodLayer = new OpenLayers.Layer.Vector("Coastal Flood Layer", {
                 styleMap:cf_style,
                 strategies:[
@@ -202,6 +204,11 @@
                     })
                 })
             });
+
+            var var_from_php = document.getElementById('container').innerHTML;
+            //alert(var_from_php);
+            var prevFlashFeatures = getJSONdata(var_from_php);
+            //flashFloodLayer.addFeatures(prevFlashFeatures);
 
             map.addLayers([flashFloodLayer, coastalFloodLayer, urbanFloodLayer, fluvialLayer, pluvialLayer, landslideLayer, faultsLayer, volcanicLayer, tsunamiLayer]);
             map.addControl(new OpenLayers.Control.LayerSwitcher());
@@ -329,7 +336,7 @@
                 map.addControl(drawControls[key]);
             }
 
-            document.getElementById('noneToggle').checked = true;
+             document.getElementById('noneToggle').checked = true;
 
             var switcherControl = new OpenLayers.Control.LayerSwitcher();
             map.addControl(switcherControl);
@@ -339,31 +346,26 @@
                 var lonLat = new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject());
                 map.setCenter (lonLat, zoom);
             }
+//=============================================================================================================================
 
-            //var xdata = '<?php echo $row[\'json_string\']; ?>';
-            //alert(xdata);
+            //var features_ff = geoJSON.read(var_from_php);
+
+            /*if(features_ff.contructor != Array){
+                features_ff = [features_ff];
+            }
+
+            flashFloodLayer.addFeatures(features_ff);
+            map.addLayers([features_ff]);*/
+
+//=============================================================================================================================
 
             document.getElementById('button').onclick = function(){
                 var geoJSON = new OpenLayers.Format.GeoJSON();
                 json = geoJSON.write(flashFloodLayer.features);
                 window.location.href = "http://localhost/osm/geohazards.php?json="+json;
             }  
-            
-            
-
         }
-
-        function toggleControl(element){
-            for(key in drawControls){
-                var control = drawControls[key];
-                if(element.value == key && element.checked){
-                    control.activate();
-                } else{
-                    control.deactivate();
-                }
-            }
-        }
-
+//=============================================================================================================================
         function allowPan(element){
             var stop = !element.checked;
             for(var key in drawControls){
@@ -477,6 +479,10 @@
             control.activate();
         }
 
+        function getJSONdata(var_from_php){
+            var geoJSON = new OpenLayers.Format.GeoJSON();
+            return geoJSON.read(var_from_php);
+        }
 
 DeleteFeature = OpenLayers.Class(OpenLayers.Control,{
     initialize: function(layer, options){
@@ -503,3 +509,4 @@ DeleteFeature = OpenLayers.Class(OpenLayers.Control,{
     },
     CLASS_NAME: "OpenLayers.Control.DeleteFeature"
 })
+getJSON
