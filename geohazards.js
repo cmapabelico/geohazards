@@ -339,8 +339,8 @@
                 map.setCenter (lonLat, zoom);
             }
 
-            var xdata = '<?php echo $row[\'json_string\']; ?>';
-            alert(xdata);
+            //var xdata = '<?php echo $row[\'json_string\']; ?>';
+            //alert(xdata);
 
             document.getElementById('button').onclick = function(){
                 var geoJSON = new OpenLayers.Format.GeoJSON();
@@ -395,8 +395,6 @@
 
             //get the description or other specifications entered by the user
             hazardDescription = document.getElementById("description").value;
-          var xdata = '<?php echo $row[\'json_string\']; ?>';
-            alert(xdata);
             //alert(hazardDescription); 
             if (hazardType == "flashflood") {
                 if (featureType == "point") {
