@@ -3,7 +3,7 @@
         var lon=121.222115;
         var zoom=14;
  
-        var map, drawControls; //complex object of type OpenLayers.Map
+        var map, drawControls, selectControl; //complex object of type OpenLayers.Map
  
         //Initialise the 'map' object
         function init() {
@@ -48,50 +48,99 @@
 
 
             //styles
-            var ff_style = new OpenLayers.StyleMap(OpenLayers.Util.applyDefaults(
+            var ff_style = new OpenLayers.StyleMap({
+                "default": new OpenLayers.Style(OpenLayers.Util.applyDefaults(
                     {fillColor:"#1389ba", fillOpacity:0.5, strokeColor:"#1389ba", strokeWidth:5, pointRadius: 10},
                     OpenLayers.Feature.Vector.style["default"]
-            ));
+                    )   
+                ),
+                "select":new OpenLayers.Style(
+                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:15}
+                )
+            });
 
-            var cf_style = new OpenLayers.StyleMap(OpenLayers.Util.applyDefaults(
+            var cf_style = new OpenLayers.StyleMap({
+                "default": new OpenLayers.Style(OpenLayers.Util.applyDefaults(
                     {fillColor:"#89ba13", fillOpacity:0.5, strokeColor:"#89ba13", strokeWidth:5, pointRadius: 10},
                     OpenLayers.Feature.Vector.style["default"]
-            ));
+                    )
+                ),
+                "select":new OpenLayers.Style(
+                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:15}
+                    )
+            });
 
-            var uf_style = new OpenLayers.StyleMap(OpenLayers.Util.applyDefaults(
+            var uf_style = new OpenLayers.StyleMap({
+                "default":new OpenLayers.Style(OpenLayers.Util.applyDefaults(
                     {fillColor:"#ba1389", fillOpacity:0.5, strokeColor:"#ba1389", strokeWidth:5, pointRadius: 10},
                     OpenLayers.Feature.Vector.style["default"]
-            ));
+                    )),
+                "select":new OpenLayers.Style(
+                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:15}
+                    )
+            });
 
-            var fl_style = new OpenLayers.StyleMap(OpenLayers.Util.applyDefaults(
+            var fl_style = new OpenLayers.StyleMap({
+                "default": new OpenLayers.Style(OpenLayers.Util.applyDefaults(
                     {fillColor:"#e46e1a", fillOpacity:0.5, strokeColor:"#e46e1a", strokeWidth:5, pointRadius: 10},
                     OpenLayers.Feature.Vector.style["default"]
-            ));
+                )),
+                "select":new OpenLayers.Style(
+                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:15}
+                    )
+            });
 
-            var pl_style = new OpenLayers.StyleMap(OpenLayers.Util.applyDefaults(
+            var pl_style = new OpenLayers.StyleMap({
+                "default":new OpenLayers.Style(OpenLayers.Util.applyDefaults(
                     {fillColor:"#3c1f3c", fillOpacity:0.5, strokeColor:"#3c1f3c", strokeWidth:5, pointRadius: 10},
                     OpenLayers.Feature.Vector.style["default"]
-            ));
+                )),
+                "select":new OpenLayers.Style(
+                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:15}
+                    )
+            });
 
-            var ll_style = new OpenLayers.StyleMap(OpenLayers.Util.applyDefaults(
+            var ll_style = new OpenLayers.StyleMap({
+                "default":new OpenLayers.Style(OpenLayers.Util.applyDefaults(
                     {fillColor:"#ffb400", fillOpacity:0.5, strokeColor:"#ffb400", strokeWidth:5, pointRadius: 10},
                     OpenLayers.Feature.Vector.style["default"]
-            ));
+                )),
+                "select":new OpenLayers.Style(
+                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:15}
+                    )
+            });
 
-            var fa_style = new OpenLayers.StyleMap(OpenLayers.Util.applyDefaults(
+            var fa_style = new OpenLayers.StyleMap({
+                "default":new OpenLayers.Style(OpenLayers.Util.applyDefaults(
                     {fillColor:"#b26662", fillOpacity:0.5, strokeColor:"#b26662", strokeWidth:5, pointRadius: 10},
                     OpenLayers.Feature.Vector.style["default"]
-            ));
+                )),
+                "select":new OpenLayers.Style(
+                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:15}
+                    )
+            });
 
-            var vol_style = new OpenLayers.StyleMap(OpenLayers.Util.applyDefaults(
+            var vol_style = new OpenLayers.StyleMap({
+                "default":new OpenLayers.Style(OpenLayers.Util.applyDefaults(
                     {fillColor:"#b00004", fillOpacity:0.5, strokeColor:"#b00004", strokeWidth:5, pointRadius: 10},
                     OpenLayers.Feature.Vector.style["default"]
-            ));
+                )),
+                "select":new OpenLayers.Style(
+                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:15}
+                    )
+            });
 
-            var tsu_style = new OpenLayers.StyleMap(OpenLayers.Util.applyDefaults(
+            var tsu_style = new OpenLayers.StyleMap({
+                "default": new OpenLayers.Style(OpenLayers.Util.applyDefaults(
                     {fillColor:"#c1e2ea", fillOpacity:0.5, strokeColor:"#c1e2ea", strokeWidth:5, pointRadius: 10},
                     OpenLayers.Feature.Vector.style["default"]
-            ));
+                )),
+                "select":new OpenLayers.Style(
+                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:15}
+                    )
+            });
+
+            
             // This is the end of the layer
             //Declaration of vector layers holding hazard data
             var flashFloodLayer = new OpenLayers.Layer.Vector("Flash Flood Layer", {

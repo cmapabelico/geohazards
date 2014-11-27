@@ -108,7 +108,7 @@
     <!-- bring in the OpenStreetMap OpenLayers layers.
          Using this hosted file will make sure we are kept up
          to date with any necessary changes -->
-    <script src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script>
+    <script src="OpenStreetMap.js"></script>
  
     <script src="geohazards.js"></script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
