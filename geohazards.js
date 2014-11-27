@@ -510,8 +510,18 @@
                 fa = geoJSON.write(faultsLayer.features);
                 vol = geoJSON.write(volcanicLayer.features);
                 tsu = geoJSON.write(tsunamiLayer.features);
+                //alert(ff);
+                $.ajax({
+                    url: 'geohazards_2.php',
+                    type: 'GET',
+                    data: {ff: ff},
+                    success: function(data){
+                        console.log(data);
+                        alert(data);
+                    }
+                });
 
-                window.location.href = "http://localhost/osm/geohazards_2.php?ff="+ff+"&cf="+cf+"&uf="+uf+"&fl="+fl+"&pl="+pl+"&ll="+ll+"&fa="+fa+"&vol="+vol+"&tsu="+tsu;
+                //window.location.href = "http://localhost/osm/geohazards_2.php?ff="+ff+"&cf="+cf+"&uf="+uf+"&fl="+fl+"&pl="+pl+"&ll="+ll+"&fa="+fa+"&vol="+vol+"&tsu="+tsu;
             } 
 
             document.getElementById('logout').onclick = function(){
