@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Hover over Marker Popup</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+<!-- OpenSpace key - needs changed to your own key -->
+<script type="text/javascript" src="http://openspace.ordnancesurvey.co.uk/osmapapi/openspace.js?key=6F34E3A07F2E8D02E0405F0AF060357A"></script>
+<script type="text/javascript">
+
+    //  *** define how marker should look ***
+    var sketchSymbolizers = {
+        'Point': {
+            pointRadius: 4
+        },
+        'Line': {
+            strokeWidth: 3,
+            strokeOpacity: 0.5,
+            strokeColor: "black"
+        },
+        'Polygon': {
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            strokeColor: "black",
+            fillColor: "#000088",
+            fillOpacity: 0.3
+        }
+    };
+    style = new OpenLayers.Style();
+    style.addRules([new OpenLayers.Rule({ symbolizer: sketchSymbolizers })]);
+    var styleMap = new OpenLayers.StyleMap({ "default": style });
+
+
+    var markStyle = new OpenLayers.StyleMap({
+        externalGraphic: "../Images/marker-gold.png",
+        backgroundGraphic: "../Images/marker_shadow.png",
+        graphicYOffset: -20,
+        backgroundXOffset: 0,
+        backgroundYOffset: -16,
+        graphicZIndex: 11,
+        backgroundGraphicZIndex: 10,
+        pointRadius: 10
+    });
+
+
+    //  *** global variables ***
+    var osMap, markLayer;
+
+
+    //  *** this sets up the map ***
+    function init() {
+        osMap = new OpenSpace.Map('osmap');                                     // setup up osMap and use containing div (id=osmap)
+        centrePoint = new OpenSpace.MapPoint(306407, 522032);                   // centre point of the middle(ish) of UK
+        osMap.setCenter(centrePoint, 7);                                        // centre the map to the middle(ish) of UK using zoom level 7
+        markLayer = new OpenLayers.Layer.Vector('markLayer', {                  //create vector layer for adding markers
+            styleMap: markStyle
+        });
+        osMap.addLayer(markLayer);                                              //add layer to osMap
+        markLayer.addFeatures(new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point(308407, 524032)));                    //add marker to markLayer
+        markLayer.addFeatures(new OpenLayers.Feature.Vector(
+            new OpenLayers.Geometry.Point(centrePoint.lon, centrePoint.lat)));  //add marker to markLayer at centre of osMap
+        selectControl = new OpenLayers.Control.SelectFeature(markLayer, {       //create control for markLayer to check for mouse 'hover'
+            hover: true,
+            onSelect: onMarkerSelect,
+            onUnselect: onMarkerUnselect
+        });
+        osMap.addControl(selectControl);                                        //add the control to osMap
+        selectControl.activate();                                               //make the control active
+        linemeasure = new OpenLayers.Control.Measure(OpenLayers.Handler.Path, { handlerOptions: { persist: true, layerOptions: { styleMap: styleMap}} });
+        osMap.addControl(linemeasure);
+        linemeasure.activate();
+    }
+
+
+    //  *** this fires when you move over a marker ***
+    function onMarkerSelect(marker) {
+        if (document.getElementById('Text1').value != '') {                     //check to see if anything is typed in the text box
+            marker.attributes.text = document.getElementById('Text1').value;    //set attribute of marker to content of text box
+            document.getElementById('Text1').value = '';                        //clear the content of the check box
+        }
+        selectedMarker = marker;                                                //use this to identify the selected marker in the onPopupClose function
+        popup = new OpenLayers.Popup.FramedCloud("HoverPop",
+                                     marker.geometry.getBounds().getCenterLonLat(),
+                                     null,
+                                     "<div style='font-size:.8em'>Marker: " + marker.id + "<br />Text: " + marker.attributes.text + "</div>",
+                                     null, false, onPopupClose);                //the guts of the popup
+        marker.popup = popup;                                                   //assign to marker
+        osMap.addPopup(popup);                                                  //add popup to map
+    }
+
+
+    //  *** this fires when you move off a marker ***
+    function onMarkerUnselect(marker) {
+        osMap.removePopup(marker.popup);                                        //remove popup from map
+        marker.popup.destroy();                                                 //remove from memory
+    }
+
+
+    //  *** this fires when the popup is closed ***
+    function onPopupClose(evt) {
+        selectControl.unselect(selectedmarker);                                 //deselect the marker most recently showing the popup
+    }
+
+</script>
+</head>
+
+<body onload="init()">
+<p>Hover over marker to view popup</p>
+<p>Enter text in the box below and then hover over marker to populate Text field unique to marker</p>
+<input id="Text1" type="text" />
+<div id="osmap" style="border: 1px solid black; width:540px; height:440px;"></div>
+</body>
+</html>

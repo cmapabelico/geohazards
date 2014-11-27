@@ -11,12 +11,20 @@
         }
 
         function onFeatureSelect(feature){
+            if(document.getElementById('title').value!=''){
+                feature.attributes.title = document.getElementById('title').value;
+                document.getElementById('title').value='';
+            }
+            if(document.getElementById('description').value!=''){
+                feature.attributes.description = document.getElementById('description').value;
+                document.getElementById('description').value='';
+            }
             selectedFeature = feature;
             popup = new OpenLayers.Popup.FramedCloud("chicken",
                 feature.geometry.getBounds().getCenterLonLat(),
                 null,
-                "<div style='font-size:.8em'>Feature: "+ feature.id + "<br>Area: " + feature.geometry.getArea()+"</div>",
-                null, false, onPopupExit
+                "<div style='font-size:1em'>Feature: "+ feature.id + "<br>Title: " + feature.attributes.title+"<br>Description: "+feature.attributes.description+"</div>",
+                null, true, onPopupExit
                 );
             feature.popup = popup;
             map.addPopup(popup);
@@ -367,7 +375,7 @@
                 ],{
                     onSelect: onFeatureSelect, onUnselect: onFeatureUnselect,
                     clickout: true, toggle: false,
-                    multiple: false, hover: true,
+                    multiple: false, hover: false,
                     toggleKey: "ctrlKey", //ctrl key removes from selection
                     multipleKey: "shiftKey" //shift key adds to selection
                 }
@@ -375,12 +383,6 @@
             );
             map.addControl(selectControl);
             selectControl.activate();
-//=========================================================================================================================
-            /*flashFloodLayer.events.on({
-                "featureselected": function(e){
-
-                }
-            });*/
 //=========================================================================================================================
 //Edit panels
             var editPanelFlash = new OpenLayers.Control.Panel({displayClass: 'editPanelFlash'});
@@ -441,7 +443,7 @@
                 new DeleteFeature(tsunamiLayer,{title:'Delete Feature'})    
             ]);
 	
-            map.addControl(editPanelFlash);
+           // map.addControl(editPanelFlash);
             
 //Declaration of feature controllers
             drawControls = {
@@ -531,7 +533,6 @@
                     }
                 });
 
-                //window.location.href = "http://localhost/osm/geohazards_2.php?ff="+ff+"&cf="+cf+"&uf="+uf+"&fl="+fl+"&pl="+pl+"&ll="+ll+"&fa="+fa+"&vol="+vol+"&tsu="+tsu;
             } 
 
             document.getElementById('logout').onclick = function(){

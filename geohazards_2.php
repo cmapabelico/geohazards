@@ -165,9 +165,13 @@
                 </select>
         </div>
         <div class="well inner" id="details">
+        	<div id="edit title">
+        		<label for="title">Title</label>
+                <input type="text" id="title"> 
+        	</div>
             <div id="form-group">
                 <label for="description">Description</label>
-                <textarea class="form-control" rows="5" cols="55" id="description"> </textarea>
+                <textarea class="form-control" rows="3" cols="55" id="description"> </textarea>
             </div>
         </div>
         <div class="inner" id="btn-panel">
