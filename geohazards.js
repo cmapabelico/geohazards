@@ -55,7 +55,7 @@
                     )   
                 ),
                 "select":new OpenLayers.Style(
-                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:15}
+                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:20}
                 )
             });
 
@@ -66,7 +66,7 @@
                     )
                 ),
                 "select":new OpenLayers.Style(
-                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:15}
+                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:20}
                     )
             });
 
@@ -76,7 +76,7 @@
                     OpenLayers.Feature.Vector.style["default"]
                     )),
                 "select":new OpenLayers.Style(
-                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:15}
+                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:20}
                     )
             });
 
@@ -86,7 +86,7 @@
                     OpenLayers.Feature.Vector.style["default"]
                 )),
                 "select":new OpenLayers.Style(
-                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:15}
+                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:20}
                     )
             });
 
@@ -96,7 +96,7 @@
                     OpenLayers.Feature.Vector.style["default"]
                 )),
                 "select":new OpenLayers.Style(
-                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:15}
+                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:20}
                     )
             });
 
@@ -106,7 +106,7 @@
                     OpenLayers.Feature.Vector.style["default"]
                 )),
                 "select":new OpenLayers.Style(
-                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:15}
+                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:20}
                     )
             });
 
@@ -116,7 +116,7 @@
                     OpenLayers.Feature.Vector.style["default"]
                 )),
                 "select":new OpenLayers.Style(
-                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:15}
+                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:20}
                     )
             });
 
@@ -126,7 +126,7 @@
                     OpenLayers.Feature.Vector.style["default"]
                 )),
                 "select":new OpenLayers.Style(
-                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:15}
+                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:20}
                     )
             });
 
@@ -136,11 +136,11 @@
                     OpenLayers.Feature.Vector.style["default"]
                 )),
                 "select":new OpenLayers.Style(
-                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:15}
+                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:20}
                     )
             });
 
-            
+
             // This is the end of the layer
             //Declaration of vector layers holding hazard data
             var flashFloodLayer = new OpenLayers.Layer.Vector("Flash Flood Layer", {
@@ -328,6 +328,36 @@
             map.addControl(new OpenLayers.Control.LayerSwitcher());
             map.addControl(new OpenLayers.Control.MousePosition());
 
+//========================================================================================================================
+
+            selectControl = new OpenLayers.Control.SelectFeature(
+                [
+                    flashFloodLayer,
+                    coastalFloodLayer,
+                    urbanFloodLayer,
+                    fluvialLayer,
+                    pluvialLayer,
+                    landslideLayer,
+                    faultsLayer,
+                    volcanicLayer,
+                    tsunamiLayer
+                ],{
+                    clickout: true, toggle: false,
+                    multiple: false, hover: true,
+                    toggleKey: "ctrlKey", //ctrl key removes from selection
+                    multipleKey: "shiftKey" //shift key adds to selection
+                }
+                
+            );
+            map.addControl(selectControl);
+            selectControl.activate();
+//=========================================================================================================================
+            /*flashFloodLayer.events.on({
+                "featureselected": function(e){
+
+                }
+            });*/
+//=========================================================================================================================
 //Edit panels
             var editPanelFlash = new OpenLayers.Control.Panel({displayClass: 'editPanelFlash'});
             var editPanelCoastal = new OpenLayers.Control.Panel({displayClass: 'editPanelCoastal'});
