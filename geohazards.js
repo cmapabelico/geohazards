@@ -3,8 +3,31 @@
         var lon=121.222115;
         var zoom=14;
  
-        var map, drawControls, selectControl; //complex object of type OpenLayers.Map
- 
+        var map, drawControls, selectControl, selectedFeature; //complex object of type OpenLayers.Map
+        
+
+        function onPopupExit(evt){
+            selectControl.unselect(selectedFeature);
+        }
+
+        function onFeatureSelect(feature){
+            selectedFeature = feature;
+            popup = new OpenLayers.Popup.FramedCloud("chicken",
+                feature.geometry.getBounds().getCenterLonLat(),
+                null,
+                "<div style='font-size:.8em'>Feature: "+ feature.id + "<br>Area: " + feature.geometry.getArea()+"</div>",
+                null, false, onPopupExit
+                );
+            feature.popup = popup;
+            map.addPopup(popup);
+        }
+
+        function onFeatureUnselect(feature){
+            map.removePopup(feature.popup);
+            feature.popup.destroy();
+            feature.popup = null;
+        }
+
         //Initialise the 'map' object
         function init() {
           
@@ -342,6 +365,7 @@
                     volcanicLayer,
                     tsunamiLayer
                 ],{
+                    onSelect: onFeatureSelect, onUnselect: onFeatureUnselect,
                     clickout: true, toggle: false,
                     multiple: false, hover: true,
                     toggleKey: "ctrlKey", //ctrl key removes from selection
