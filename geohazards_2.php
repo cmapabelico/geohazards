@@ -38,50 +38,17 @@
 
         $_SESSION['loadflag'] = 1;
     }
-
-  // $ff = ($_GET['ff']);
-//=======================================================
-   if(isset($_GET['ff'])){
-   	$ff = $_GET['ff'];
-   	$ffVar = strcmp($ff, "{\"type\":\"FeatureCollection\",\"features\":[]}");
-   	if($ffVar == 0 || $ffVar < 0){  
-    $ff = NULL; 
-   }else{
-        $clear_table = "TRUNCATE hazard_data";
-        $sql_2 = pg_query($conn, $clear_table);
-            $ff_feature = $ff;
-            //$cf_feature = $cf;       
-            //$uf_feature = $uf;
-            //$fl_feature = $fl;
-            //$pl_feature = $pl;
-            //$ll_feature = $ll;
-            //$fa_feature = $fa;
-            //$vol_feature = $vol;
-            //$tsu_feature = $tsu;
-
-        $sql = "INSERT INTO hazard_data (hazard_id, flashflood_data) VALUES (1,'$ff')";
-        
-        //$sql = "INSERT INTO hazard_data VALUES (1,'$ff','$cf','$uf', '$fl', '$pl', '$ll', '$fa', '$vol','$tsu')";
-        $retval = pg_query($conn, $sql);
-        if(! $retval){
-            die('Could not enter data:');
-        }else{
-        }
-        pg_close($conn);    
-   }
-
-   }else{
-   	$ajax = "none";
-   }
-//=======================================================
-   /*$cf = ($_GET['cf']);
-   $uf = ($_GET['uf']);
-   $fl = ($_GET['fl']);
-   $pl = ($_GET['pl']);
-   $ll = ($_GET['ll']);
-   $fa = ($_GET['fa']);
-   $vol = ($_GET['vol']);
-   $tsu = ($_GET['tsu']);
+   	
+ 
+   $ff = $_POST['ff'];
+   $cf = $_POST['cf'];
+   $uf = $_POST['uf'];
+   $fl = $_POST['fl'];
+   $pl = $_POST['pl'];
+   $ll = $_POST['ll'];
+   $fa = $_POST['fa'];
+   $vol = $_POST['vol'];
+   $tsu = $_POST['tsu'];
 
    $ffVar = strcmp($ff, "{\"type\":\"FeatureCollection\",\"features\":[]}");
    $cfVar = strcmp($cf, "{\"type\":\"FeatureCollection\",\"features\":[]}");
@@ -126,7 +93,7 @@
         }
         pg_close($conn);    
    }
-*/
+
  ?>
 <head>
     <title>Geohazards layer</title>
@@ -226,7 +193,6 @@
     <p id="container7"><?php echo $fa_feature; ?></p>
     <p id="container8"><?php echo $vol_feature; ?></p>
     <p id="container9"><?php echo $tsu_feature; ?></p>
-    <p id="ajax"><?php echo $ff; ?></p>
 </body>
  
 </html>

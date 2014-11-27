@@ -513,8 +513,18 @@
                 //alert(ff);
                 $.ajax({
                     url: 'geohazards_2.php',
-                    type: 'GET',
-                    data: {ff: ff},
+                    type: 'POST',
+                    data: {
+                        ff:ff,
+                        cf:cf,
+                        uf:uf,
+                        fl:fl,
+                        pl:pl,
+                        ll:ll,
+                        fa:fa,
+                        vol:vol,
+                        tsu:tsu
+                    },
                     success: function(data){
                         console.log(data);
                         alert(data);
