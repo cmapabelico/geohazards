@@ -29,9 +29,9 @@ body{
 #details{
 	width:30%;
 }
-
+/*edit panels css*/
 div.editPanelFlash{
-	top: 100px;
+	bottom: 100px;
 	left:50px;
 	position:absolute;
 }
@@ -39,8 +39,11 @@ div.editPanelFlash{
 		width: 22px;
 		height: 22px;
 		border: thin solid black;
+		background: red;
 		margin-top: 10px;
 	}
+
+
 .saveButtonItemActive {background-position: 0px -299px; }
 .saveButtonItemInactive {background-position: 0px -276px;}
 .geo-type{

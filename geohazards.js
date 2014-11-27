@@ -206,24 +206,74 @@
             });
 //==============================================================================================================
             var geoJSON = new OpenLayers.Format.GeoJSON();
-            var var_from_php_1 = document.getElementById('container').innerHTML;
-            var var_from_php_2 = document.getElementById('container2').innerHTML;
-            var flag1 = document.getElementById('flag1').innerHTML;
+            var var_ff = document.getElementById('container1').innerHTML;
+            var var_cf = document.getElementById('container2').innerHTML;
+            var var_uf = document.getElementById('container3').innerHTML;
+            var var_fl = document.getElementById('container4').innerHTML;
+            var var_pl = document.getElementById('container5').innerHTML;
+            var var_ll = document.getElementById('container6').innerHTML;
+            var var_fa = document.getElementById('container7').innerHTML;
+            var var_vol = document.getElementById('container8').innerHTML;
+            var var_tsu = document.getElementById('container9').innerHTML;
             var valid, prevFlashFeatures;
 
-            if(var_from_php_1){
-                valid = JSON.stringify(eval("("+var_from_php_1+")"));
-                prevFlashFeatures = getJSONdata(valid);
+            
+                if(var_ff){
+                    valid = JSON.stringify(eval("("+var_ff+")"));
+                    prevFlashFeatures = getJSONdata(valid);
            
-                flashFloodLayer.addFeatures(prevFlashFeatures);
-            }
+                    flashFloodLayer.addFeatures(prevFlashFeatures);
+                }
+                if(var_cf){
+                    valid = JSON.stringify(eval("("+var_cf+")"));
+                    prevFlashFeatures = getJSONdata(valid);
+           
+                    coastalFloodLayer.addFeatures(prevFlashFeatures);
+                }
+                if(var_uf){
+                    valid = JSON.stringify(eval("("+var_uf+")"));
+                    prevFlashFeatures = getJSONdata(valid);
+            
+                    urbanFloodLayer.addFeatures(prevFlashFeatures);
+                }
+                if(var_fl){
+                    valid = JSON.stringify(eval("("+var_fl+")"));
+                    prevFlashFeatures = getJSONdata(valid);
+           
+                    fluvialLayer.addFeatures(prevFlashFeatures);
+                }
+                if(var_pl){
+                    valid = JSON.stringify(eval("("+var_pl+")"));
+                    prevFlashFeatures = getJSONdata(valid);
+           
+                    pluvialLayer.addFeatures(prevFlashFeatures);
+                }
+                if(var_ll){
+                    valid = JSON.stringify(eval("("+var_ll+")"));
+                    prevFlashFeatures = getJSONdata(valid);
+           
+                    landslideLayer.addFeatures(prevFlashFeatures);
+                }
+                if(var_fa){
+                    valid = JSON.stringify(eval("("+var_fa+")"));
+                    prevFlashFeatures = getJSONdata(valid);
+           
+                    faultsLayer.addFeatures(prevFlashFeatures);
+                }
+                if(var_vol){
+                    valid = JSON.stringify(eval("("+var_vol+")"));
+                    prevFlashFeatures = getJSONdata(valid);
+           
+                    volcanicLayer.addFeatures(prevFlashFeatures);
+                }
+                if(var_tsu){
+                    valid = JSON.stringify(eval("("+var_tsu+")"));
+                    prevFlashFeatures = getJSONdata(valid);
+           
+                    tsunamiLayer.addFeatures(prevFlashFeatures);
+                }
 
-            if(var_from_php_2){
-                valid = JSON.stringify(eval("("+var_from_php_2+")"));
-                prevFlashFeatures = getJSONdata(valid);
-           
-                flashFloodLayer.addFeatures(prevFlashFeatures);
-            }
+//==========================================================================================================
 //==============================================================================================================
             map.addLayers([flashFloodLayer, coastalFloodLayer, urbanFloodLayer, fluvialLayer, pluvialLayer, landslideLayer, faultsLayer, volcanicLayer, tsunamiLayer]);
             map.addControl(new OpenLayers.Control.LayerSwitcher());
@@ -244,65 +294,48 @@
 //Adding controls to panels
             editPanelFlash.addControls([
                 new OpenLayers.Control.ModifyFeature(flashFloodLayer,{ title:'Edit feature'}),
-                new DeleteFeature(flashFloodLayer,{title:'Delete Feature'}),
-                new OpenLayers.Control.Button({displayClass: 'saveButton', trigger: function(){saveStrategy.save()}, title:'Save changes'})
+                new DeleteFeature(flashFloodLayer,{title:'Delete Feature'})
                 
             ]);
             
             editPanelCoastal.addControls([
                 new OpenLayers.Control.ModifyFeature(coastalFloodLayer,{ title:'Edit feature'}),
-                new DeleteFeature(coastalFloodLayer,{title:'Delete Feature'}),
-                new OpenLayers.Control.Button({displayClass: 'saveButton', trigger: function(){saveStrategy.save()}, title:'Save changes'})
-                
+                new DeleteFeature(coastalFloodLayer,{title:'Delete Feature'})                
             ]);
             
             editPanelUrban.addControls([
                 new OpenLayers.Control.ModifyFeature(urbanFloodLayer,{ title:'Edit feature'}),
-                new DeleteFeature(urbanFloodLayer,{title:'Delete Feature'}),
-                new OpenLayers.Control.Button({displayClass: 'saveButton', trigger: function(){saveStrategy.save()}, title:'Save changes'})
-                
+                new DeleteFeature(urbanFloodLayer,{title:'Delete Feature'})                
             ]);
             
             editPanelRiver.addControls([
                 new OpenLayers.Control.ModifyFeature(fluvialLayer,{ title:'Edit feature'}),
-                new DeleteFeature(fluvialLayer,{title:'Delete Feature'}),
-                new OpenLayers.Control.Button({displayClass: 'saveButton', trigger: function(){saveStrategy.save()}, title:'Save changes'})
-                
+                new DeleteFeature(fluvialLayer,{title:'Delete Feature'})               
             ]);
             
             editPanelPond.addControls([
                 new OpenLayers.Control.ModifyFeature(pluvialLayer,{ title:'Edit feature'}),
-                new DeleteFeature(pluvialLayer,{title:'Delete Feature'}),
-                new OpenLayers.Control.Button({displayClass: 'saveButton', trigger: function(){saveStrategy.save()}, title:'Save changes'})
-                
+                new DeleteFeature(pluvialLayer,{title:'Delete Feature'})               
             ]);
 
             editPanelLandslide.addControls([
                 new OpenLayers.Control.ModifyFeature(landslideLayer,{ title:'Edit feature'}),
-                new DeleteFeature(landslideLayer,{title:'Delete Feature'}),
-                new OpenLayers.Control.Button({displayClass: 'saveButton', trigger: function(){saveStrategy.save()}, title:'Save changes'})
-                
+                new DeleteFeature(landslideLayer,{title:'Delete Feature'})               
             ]);
 
             editPanelFault.addControls([
                 new OpenLayers.Control.ModifyFeature(faultsLayer,{ title:'Edit feature'}),
-                new DeleteFeature(faultsLayer,{title:'Delete Feature'}),
-                new OpenLayers.Control.Button({displayClass: 'saveButton', trigger: function(){saveStrategy.save()}, title:'Save changes'})
-                
+                new DeleteFeature(faultsLayer,{title:'Delete Feature'})               
             ]);
 
             editPanelVolcanic.addControls([
                 new OpenLayers.Control.ModifyFeature(volcanicLayer,{ title:'Edit feature'}),
-                new DeleteFeature(volcanicLayer,{title:'Delete Feature'}),
-                new OpenLayers.Control.Button({displayClass: 'saveButton', trigger: function(){saveStrategy.save()}, title:'Save changes'})
-                
+                new DeleteFeature(volcanicLayer,{title:'Delete Feature'})              
             ]);
 
             editPanelTsunami.addControls([
                 new OpenLayers.Control.ModifyFeature(tsunamiLayer,{ title:'Edit feature'}),
-                new DeleteFeature(tsunamiLayer,{title:'Delete Feature'}),
-                new OpenLayers.Control.Button({displayClass: 'saveButton', trigger: function(){saveStrategy.save()}, title:'Save changes'})
-                
+                new DeleteFeature(tsunamiLayer,{title:'Delete Feature'})    
             ]);
 	
             map.addControl(editPanelFlash);
@@ -365,12 +398,21 @@
 
             document.getElementById('button').onclick = function(){
                 var geoJSON = new OpenLayers.Format.GeoJSON();
-                json = geoJSON.write(flashFloodLayer.features);
-                window.location.href = "http://localhost/osm/geohazards.php?json="+json;
+                ff = geoJSON.write(flashFloodLayer.features);
+                cf = geoJSON.write(coastalFloodLayer.features);
+                uf = geoJSON.write(urbanFloodLayer.features);
+                fl = geoJSON.write(fluvialLayer.features);
+                pl = geoJSON.write(pluvialLayer.features);
+                ll = geoJSON.write(landslideLayer.features);
+                fa = geoJSON.write(faultsLayer.features);
+                vol = geoJSON.write(volcanicLayer.features);
+                tsu = geoJSON.write(tsunamiLayer.features);
+
+                window.location.href = "http://localhost/osm/geohazards_2.php?ff="+ff+"&cf="+cf+"&uf="+uf+"&fl="+fl+"&pl="+pl+"&ll="+ll+"&fa="+fa+"&vol="+vol+"&tsu="+tsu;
             } 
 
             document.getElementById('logout').onclick = function(){
-                location.href = "geohazards_guest.php";
+                location.href = "geohazards_guest_2.php";
             } 
         }
 //=========================================================================================
@@ -406,7 +448,7 @@
 
             //get the description or other specifications entered by the user
             hazardDescription = document.getElementById("description").value;
-            //alert(hazardDescription); 
+
             if (hazardType == "flashflood") {
                 if (featureType == "point") {
                     key = "ff_point";
@@ -501,9 +543,7 @@
         function getJSONdata(valid){
             var geoJSON = new OpenLayers.Format.GeoJSON(); 
             var features_ff = geoJSON.read(valid,"FeatureCollection");
-            /*if(features_ff.contructor != Array){
-                features_ff = [features_ff];
-            }*/
+            
             return features_ff;
         }
 

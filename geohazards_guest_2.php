@@ -2,26 +2,36 @@
 <html>
 <?php
     $dbhost = 'localhost';
-    $dbuser = 'root';
+    $dbuser = 'postgres';
     $dbpass = 'password';
-    $conn = mysql_connect($dbhost, $dbuser, $dbpass);
-    mysql_select_db('geohazards');
 
+    $conn = pg_connect("host=localhost port=5432 dbname=geohazards user=postgres password=password");
+    
     if(!$conn){
-            die('Could not connect:' .mysql_error());
+            die('an error occured!');
     }
     /* Loads stored json string from the database
      * from the tables, then clears the content of the tables;
      */
-    $load_data = "SELECT json_string FROM flashflood_data WHERE id = 1";
-    $sql_1 = mysql_query($load_data,$conn); 
+    $load_data = "SELECT flashflood_data, coastal_data, urban_data, fluvial_data, pluvial_data, landslide_data, fault_data, volcanic_data, tsunami_data FROM hazard_data WHERE hazard_id = 1";
+    $sql_1 = pg_query($conn, $load_data);
+
     if(!$sql_1){
-        die('Could not pull data'.mysql_error());
-    }else{
-        while($row = mysql_fetch_array($sql_1, MYSQL_ASSOC)){
-            $feature =$row['json_string'];
+            die('Could not pull data');
+        }else{
+            while($row = pg_fetch_array($sql_1)){
+                $ff_feature =$row['flashflood_data'];
+                $cf_feature =$row['coastal_data'];
+                $uf_feature =$row['urban_data'];
+                $fl_feature =$row['fluvial_data'];
+                $pl_feature =$row['pluvial_data'];
+                $ll_feature =$row['landslide_data'];
+                $fa_feature =$row['fault_data'];
+                $vol_feature =$row['volcanic_data'];
+                $tsu_feature =$row['tsunami_data'];
+            }
         }
-    }
+
 ?>
 <head>
     <title>Geohazards layer</title>
@@ -61,7 +71,15 @@
         </button>
     </div>
 
-    <p id="container_guest"><?php echo $feature; ?></p>
+    <p id="container_guest_1"><?php echo $ff_feature; ?></p>
+    <p id="container_guest_2"><?php echo $cf_feature; ?></p>
+    <p id="container_guest_3"><?php echo $uf_feature; ?></p>
+    <p id="container_guest_4"><?php echo $fl_feature; ?></p>
+    <p id="container_guest_5"><?php echo $pl_feature; ?></p>
+    <p id="container_guest_6"><?php echo $ll_feature; ?></p>
+    <p id="container_guest_7"><?php echo $fa_feature; ?></p>
+    <p id="container_guest_8"><?php echo $vol_feature; ?></p>
+    <p id="container_guest_9"><?php echo $tsu_feature; ?></p>
 
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -70,7 +88,7 @@
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="modal-title" id="myModalLabel">Login</h4>
       </div>
-      <form name="form1" method="post" action="checklogin.php">
+      <form name="form1" method="post" action="checklogin2.php">
       <div class="modal-body">
         <table width="300" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#CCCCCC">
             <tr>

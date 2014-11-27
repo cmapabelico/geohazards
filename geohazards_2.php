@@ -1,56 +1,96 @@
 <?php session_start();
-    /*if(!isset($_SESSION['userid'])){
-        header("location:geohazards_guest.php");
-    }*/
+    if(!isset($_SESSION['userid'])){
+        header("location:geohazards_guest_2.php");
+    }
 ?>
 
 <html>
 <?php
     $dbhost = 'localhost';
-    $dbuser = 'root';
+    $dbuser = 'postgres';
     $dbpass = 'password';
-    $conn = mysql_connect($dbhost, $dbuser, $dbpass);
-    mysql_select_db('geohazards');
+    $conn = pg_connect("host=localhost port=5432 dbname=geohazards user=postgres password=password");
 
     if(!$conn){
-            die('Could not connect:' .mysql_error());
+            die('Could not connect:');
     }
     /* Loads stored json string from the database
      * from the tables, then clears the content of the tables;
      */
     if($_SESSION['loadflag'] == 0){
-        $load_data = "SELECT json_string FROM flashflood_data WHERE id = 1";
-        $sql_1 = mysql_query($load_data,$conn); 
+        $load_data = "SELECT flashflood_data, coastal_data, urban_data, fluvial_data, pluvial_data, landslide_data, fault_data, volcanic_data, tsunami_data FROM hazard_data WHERE hazard_id = 1";
+        $sql_1 = pg_query($conn, $load_data); 
         if(!$sql_1){
-            die('Could not pull data'.mysql_error());
+            die('Could not pull data');
         }else{
-            while($row = mysql_fetch_array($sql_1, MYSQL_ASSOC)){
-                $feature =$row['json_string'];
+            while($row = pg_fetch_array($sql_1)){
+                $ff_feature =$row['flashflood_data'];
+                $cf_feature =$row['coastal_data'];
+                $uf_feature =$row['urban_data'];
+                $fl_feature =$row['fluvial_data'];
+                $pl_feature =$row['pluvial_data'];
+                $ll_feature =$row['landslide_data'];
+                $fa_feature =$row['fault_data'];
+                $vol_feature =$row['volcanic_data'];
+                $tsu_feature =$row['tsunami_data'];
             }
         }
 
         $_SESSION['loadflag'] = 1;
     }
 
-    $clear_table = "TRUNCATE flashflood_data";
-    $sql_2 = mysql_query($clear_table, $conn);
+   $ff = ($_GET['ff']);
+   $cf = ($_GET['cf']);
+   $uf = ($_GET['uf']);
+   $fl = ($_GET['fl']);
+   $pl = ($_GET['pl']);
+   $ll = ($_GET['ll']);
+   $fa = ($_GET['fa']);
+   $vol = ($_GET['vol']);
+   $tsu = ($_GET['tsu']);
 
-   $json = ($_GET['json']);
-   $var = strcmp($json, "{\"type\":\"FeatureCollection\",\"features\":[]}");
+   $ffVar = strcmp($ff, "{\"type\":\"FeatureCollection\",\"features\":[]}");
+   $cfVar = strcmp($cf, "{\"type\":\"FeatureCollection\",\"features\":[]}");
+   $ufVar = strcmp($uf, "{\"type\":\"FeatureCollection\",\"features\":[]}");
+   $flVar = strcmp($fl, "{\"type\":\"FeatureCollection\",\"features\":[]}");
+   $plVar = strcmp($pl, "{\"type\":\"FeatureCollection\",\"features\":[]}");
+   $llVar = strcmp($ll, "{\"type\":\"FeatureCollection\",\"features\":[]}");
+   $faVar = strcmp($fa, "{\"type\":\"FeatureCollection\",\"features\":[]}");
+   $volVar = strcmp($vol, "{\"type\":\"FeatureCollection\",\"features\":[]}");
+   $tsuVar = strcmp($tsu, "{\"type\":\"FeatureCollection\",\"features\":[]}");
 //=====================================================================================
     
-   if($var == 0 || $var < 0){
-    $json = NULL; 
+   if($ffVar == 0 || $ffVar < 0 &&
+        $cfVar == 0 || $cfVar < 0 &&
+        $ufVar == 0 || $ufVar < 0 &&
+        $flVar == 0 || $flVar < 0 &&
+        $plVar == 0 || $plVar < 0 &&
+        $llVar == 0 || $llVar < 0 &&
+        $faVar == 0 || $faVar < 0 &&
+        $volVar == 0 || $volVar < 0 &&
+        $tsuVar == 0 || $tsuVar < 0 
+    ){  
+    $ff = NULL; 
    }else{
-        $feature2 = $json;
-        $sql = "INSERT INTO flashflood_data (json_string) VALUES ('$json')";
-        $retval = mysql_query($sql, $conn);
+        $clear_table = "TRUNCATE hazard_data";
+        $sql_2 = pg_query($conn, $clear_table);
+            $ff_feature = $ff;
+            $cf_feature = $cf;       
+            $uf_feature = $uf;
+            $fl_feature = $fl;
+            $pl_feature = $pl;
+            $ll_feature = $ll;
+            $fa_feature = $fa;
+            $vol_feature = $vol;
+            $tsu_feature = $tsu;
+
+        $sql = "INSERT INTO hazard_data VALUES (1,'$ff','$cf','$uf', '$fl', '$pl', '$ll', '$fa', '$vol','$tsu')";
+        $retval = pg_query($conn, $sql);
         if(! $retval){
-            die('Could not enter data:'. mysql_error());
+            die('Could not enter data:');
         }else{
-            $flag1 = "1";
         }
-        mysql_close($conn);
+        pg_close($conn);    
    }
 
  ?>
@@ -143,10 +183,15 @@
         </div>
        
     </div>
-    <p id="container"><?php echo $feature; ?></p>
-    <p id="container2"><?php echo $feature2; ?></p>
-    <p id="flag1"><?php echo $flag1; ?></p>
- 
+    <p id="container1"><?php echo $ff_feature; ?></p>
+    <p id="container2"><?php echo $cf_feature; ?></p>
+    <p id="container3"><?php echo $uf_feature; ?></p>
+    <p id="container4"><?php echo $fl_feature; ?></p>
+    <p id="container5"><?php echo $pl_feature; ?></p>
+    <p id="container6"><?php echo $ll_feature; ?></p>
+    <p id="container7"><?php echo $fa_feature; ?></p>
+    <p id="container8"><?php echo $vol_feature; ?></p>
+    <p id="container9"><?php echo $tsu_feature; ?></p>
 </body>
  
 </html>

@@ -206,14 +206,70 @@
             });
 //=======================================================================================================
             var geoJSON = new OpenLayers.Format.GeoJSON();
-            var var_from_php_1 = document.getElementById('container_guest').innerHTML;
+            var var_ff = document.getElementById('container_guest_1').innerHTML;
+            var var_cf = document.getElementById('container_guest_2').innerHTML;
+            var var_uf = document.getElementById('container_guest_3').innerHTML;
+            var var_fl = document.getElementById('container_guest_4').innerHTML;
+            var var_pl = document.getElementById('container_guest_5').innerHTML;
+            var var_ll = document.getElementById('container_guest_6').innerHTML;
+            var var_fa = document.getElementById('container_guest_7').innerHTML;
+            var var_vol = document.getElementById('container_guest_8').innerHTML;
+            var var_tsu = document.getElementById('container_guest_9').innerHTML;
             var valid, prevFlashFeatures;
 
-            if(var_from_php_1){
-                valid = JSON.stringify(eval("("+var_from_php_1+")"));
+            if(var_ff){
+                valid = JSON.stringify(eval("("+var_ff+")"));
                 prevFlashFeatures = getJSONdata(valid);
            
                 flashFloodLayer.addFeatures(prevFlashFeatures);
+            }
+            if(var_cf){
+                valid = JSON.stringify(eval("("+var_cf+")"));
+                prevFlashFeatures = getJSONdata(valid);
+           
+                coastalFloodLayer.addFeatures(prevFlashFeatures);
+            }
+            if(var_uf){
+                valid = JSON.stringify(eval("("+var_uf+")"));
+                prevFlashFeatures = getJSONdata(valid);
+           
+                urbanFloodLayer.addFeatures(prevFlashFeatures);
+            }
+            if(var_fl){
+                valid = JSON.stringify(eval("("+var_fl+")"));
+                prevFlashFeatures = getJSONdata(valid);
+           
+                fluvialLayer.addFeatures(prevFlashFeatures);
+            }
+            if(var_pl){
+                valid = JSON.stringify(eval("("+var_pl+")"));
+                prevFlashFeatures = getJSONdata(valid);
+           
+                pluvialLayer.addFeatures(prevFlashFeatures);
+            }
+            if(var_ll){
+                valid = JSON.stringify(eval("("+var_ll+")"));
+                prevFlashFeatures = getJSONdata(valid);
+           
+                landslideLayer.addFeatures(prevFlashFeatures);
+            }
+            if(var_fa){
+                valid = JSON.stringify(eval("("+var_fa+")"));
+                prevFlashFeatures = getJSONdata(valid);
+           
+                faultsLayer.addFeatures(prevFlashFeatures);
+            }
+            if(var_vol){
+                valid = JSON.stringify(eval("("+var_vol+")"));
+                prevFlashFeatures = getJSONdata(valid);
+           
+                volcanicLayer.addFeatures(prevFlashFeatures);
+            }
+            if(var_tsu){
+                valid = JSON.stringify(eval("("+var_tsu+")"));
+                prevFlashFeatures = getJSONdata(valid);
+           
+                tsunamiLayer.addFeatures(prevFlashFeatures);
             }
 
 //=======================================================================================================
