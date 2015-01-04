@@ -15,8 +15,13 @@ body{
 	margin:5px;
 	height:95%;
 }
+
+.btn-lg{
+	float: left;
+	margin: 5px;
+}
 #feature-type{
-	width:20%;
+	width:12%;
 }
 
 #geo-type{
@@ -29,13 +34,23 @@ body{
 #details{
 	width:30%;
 }
-/*edit panels css*/
-div.editPanelFlash{
+
+input[type=checkbox] + label {
+  color:#f00 ;
+  font-style: italic;
+} 
+input[type=checkbox]:checked + label {
+  color: #ffffff;
+  font-style: normal;
+}
+
+
+div.editPanelUrban{
 	bottom: 100px;
 	left:50px;
 	position:absolute;
 }
-	.editPanelFlash div{
+	.editPanelUrban div{
 		width: 22px;
 		height: 22px;
 		border: thin solid black;
@@ -44,11 +59,8 @@ div.editPanelFlash{
 	}
 
 
-.saveButtonItemActive {background-position: 0px -299px; }
-.saveButtonItemInactive {background-position: 0px -276px;}
-.geo-type{
-	float: left;
-}
+
+
 
 #details{
 	float: left;

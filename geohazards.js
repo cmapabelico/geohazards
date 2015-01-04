@@ -38,7 +38,16 @@
 
         //Initialise the 'map' object
         function init() {
-          
+            // To report draw modify and delete events
+            var reportEvent;
+            if (window.console && window.console.log) {
+                reportEvent = function(event) {
+                    console.log(event.type,
+                    event.feature ? event.feature.id : event.components);
+                };
+            } else {
+                reportEvent = function() {};
+            }   
             
             map = new OpenLayers.Map ("map", {
                 controls:[
@@ -186,6 +195,18 @@
                     })
                 })
             });
+//=======================================================================
+    flashFloodLayer.events.on({
+    'beforefeaturemodified': reportEvent,
+    'featuremodified': reportEvent,
+    'afterfeaturemodified': reportEvent,
+    'beforefeatureremoved': reportEvent,
+    'featureremoved': reportEvent,
+    'vertexmodified': reportEvent,
+    'sketchmodified': reportEvent,
+    'sketchstarted': reportEvent,
+    'sketchcomplete': reportEvent
+});
 //=======================================================================================================================
 
             var coastalFloodLayer = new OpenLayers.Layer.Vector("Coastal Flood Layer", {
@@ -353,7 +374,6 @@
                     tsunamiLayer.addFeatures(prevFlashFeatures);
                 }
 
-//==========================================================================================================
 //==============================================================================================================
             map.addLayers([flashFloodLayer, coastalFloodLayer, urbanFloodLayer, fluvialLayer, pluvialLayer, landslideLayer, faultsLayer, volcanicLayer, tsunamiLayer]);
             map.addControl(new OpenLayers.Control.LayerSwitcher());
@@ -483,6 +503,21 @@
                 tsu_point: new OpenLayers.Control.DrawFeature(tsunamiLayer, OpenLayers.Handler.Point),
                 tsu_line: new OpenLayers.Control.DrawFeature(tsunamiLayer, OpenLayers.Handler.Path),
                 tsu_polygon: new OpenLayers.Control.DrawFeature(tsunamiLayer,OpenLayers.Handler.Polygon),
+            //============
+                 modify: new OpenLayers.Control.ModifyFeature(null, {
+                    layers:[flashFloodLayer,
+                            coastalFloodLayer,
+                            urbanFloodLayer,
+                            fluvialLayer,
+                            pluvialLayer,
+                            landslideLayer,
+                            faultsLayer,
+                            volcanicLayer,
+                            tsunamiLayer
+                    ], 
+                    mode: OpenLayers.Control.ModifyFeature.VERTICES |
+                    OpenLayers.Control.ModifyFeature.DELETE
+                })
             };
 
             for(var key in drawControls){
@@ -500,6 +535,13 @@
                 map.setCenter (lonLat, zoom);
             }
 //=========================================================================================
+           
+            document.getElementById('remove').onclick = function(){
+                var key = "modify";
+                var control_remove = drawControls[key];
+
+                control_remove.activate();
+            }
 
             document.getElementById('button').onclick = function(){
                 var geoJSON = new OpenLayers.Format.GeoJSON();

@@ -3,11 +3,52 @@
         var lon=121.222115;
         var zoom=14;
  
-        var map, drawControls; //complex object of type OpenLayers.Map
- 
+        var map, drawControls, selectControl, selectedFeature; //complex object of type OpenLayers.Map
+        
+
+        function onPopupExit(evt){
+            selectControl.unselect(selectedFeature);
+        }
+
+        function onFeatureSelect(feature){
+            if(document.getElementById('title').value!=''){
+                feature.attributes.title = document.getElementById('title').value;
+                document.getElementById('title').value='';
+            }
+            if(document.getElementById('description').value!=''){
+                feature.attributes.description = document.getElementById('description').value;
+                document.getElementById('description').value='';
+            }
+            selectedFeature = feature;
+            popup = new OpenLayers.Popup.FramedCloud("chicken",
+                feature.geometry.getBounds().getCenterLonLat(),
+                null,
+                "<div style='font-size:1em'>Feature: "+ feature.id + "<br>Title: " + feature.attributes.title+"<br>Description: "+feature.attributes.description+"</div>",
+                null, true, onPopupExit
+                );
+            feature.popup = popup;
+            map.addPopup(popup);
+        }
+
+        function onFeatureUnselect(feature){
+            map.removePopup(feature.popup);
+            feature.popup.destroy();
+            feature.popup = null;
+        }
+
         //Initialise the 'map' object
         function init() {
- 
+            // To report draw modify and delete events
+            var reportEvent;
+            if (window.console && window.console.log) {
+                reportEvent = function(event) {
+                    console.log(event.type,
+                    event.feature ? event.feature.id : event.components);
+                };
+            } else {
+                reportEvent = function() {};
+            }   
+            
             map = new OpenLayers.Map ("map", {
                 controls:[
                     new OpenLayers.Control.Navigation(),
@@ -47,50 +88,99 @@
 
 
             //styles
-            var ff_style = new OpenLayers.StyleMap(OpenLayers.Util.applyDefaults(
+            var ff_style = new OpenLayers.StyleMap({
+                "default": new OpenLayers.Style(OpenLayers.Util.applyDefaults(
                     {fillColor:"#1389ba", fillOpacity:0.5, strokeColor:"#1389ba", strokeWidth:5, pointRadius: 10},
                     OpenLayers.Feature.Vector.style["default"]
-            ));
+                    )   
+                ),
+                "select":new OpenLayers.Style(
+                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:20}
+                )
+            });
 
-            var cf_style = new OpenLayers.StyleMap(OpenLayers.Util.applyDefaults(
+            var cf_style = new OpenLayers.StyleMap({
+                "default": new OpenLayers.Style(OpenLayers.Util.applyDefaults(
                     {fillColor:"#89ba13", fillOpacity:0.5, strokeColor:"#89ba13", strokeWidth:5, pointRadius: 10},
                     OpenLayers.Feature.Vector.style["default"]
-            ));
+                    )
+                ),
+                "select":new OpenLayers.Style(
+                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:20}
+                    )
+            });
 
-            var uf_style = new OpenLayers.StyleMap(OpenLayers.Util.applyDefaults(
+            var uf_style = new OpenLayers.StyleMap({
+                "default":new OpenLayers.Style(OpenLayers.Util.applyDefaults(
                     {fillColor:"#ba1389", fillOpacity:0.5, strokeColor:"#ba1389", strokeWidth:5, pointRadius: 10},
                     OpenLayers.Feature.Vector.style["default"]
-            ));
+                    )),
+                "select":new OpenLayers.Style(
+                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:20}
+                    )
+            });
 
-            var fl_style = new OpenLayers.StyleMap(OpenLayers.Util.applyDefaults(
+            var fl_style = new OpenLayers.StyleMap({
+                "default": new OpenLayers.Style(OpenLayers.Util.applyDefaults(
                     {fillColor:"#e46e1a", fillOpacity:0.5, strokeColor:"#e46e1a", strokeWidth:5, pointRadius: 10},
                     OpenLayers.Feature.Vector.style["default"]
-            ));
+                )),
+                "select":new OpenLayers.Style(
+                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:20}
+                    )
+            });
 
-            var pl_style = new OpenLayers.StyleMap(OpenLayers.Util.applyDefaults(
+            var pl_style = new OpenLayers.StyleMap({
+                "default":new OpenLayers.Style(OpenLayers.Util.applyDefaults(
                     {fillColor:"#3c1f3c", fillOpacity:0.5, strokeColor:"#3c1f3c", strokeWidth:5, pointRadius: 10},
                     OpenLayers.Feature.Vector.style["default"]
-            ));
+                )),
+                "select":new OpenLayers.Style(
+                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:20}
+                    )
+            });
 
-            var ll_style = new OpenLayers.StyleMap(OpenLayers.Util.applyDefaults(
+            var ll_style = new OpenLayers.StyleMap({
+                "default":new OpenLayers.Style(OpenLayers.Util.applyDefaults(
                     {fillColor:"#ffb400", fillOpacity:0.5, strokeColor:"#ffb400", strokeWidth:5, pointRadius: 10},
                     OpenLayers.Feature.Vector.style["default"]
-            ));
+                )),
+                "select":new OpenLayers.Style(
+                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:20}
+                    )
+            });
 
-            var fa_style = new OpenLayers.StyleMap(OpenLayers.Util.applyDefaults(
+            var fa_style = new OpenLayers.StyleMap({
+                "default":new OpenLayers.Style(OpenLayers.Util.applyDefaults(
                     {fillColor:"#b26662", fillOpacity:0.5, strokeColor:"#b26662", strokeWidth:5, pointRadius: 10},
                     OpenLayers.Feature.Vector.style["default"]
-            ));
+                )),
+                "select":new OpenLayers.Style(
+                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:20}
+                    )
+            });
 
-            var vol_style = new OpenLayers.StyleMap(OpenLayers.Util.applyDefaults(
+            var vol_style = new OpenLayers.StyleMap({
+                "default":new OpenLayers.Style(OpenLayers.Util.applyDefaults(
                     {fillColor:"#b00004", fillOpacity:0.5, strokeColor:"#b00004", strokeWidth:5, pointRadius: 10},
                     OpenLayers.Feature.Vector.style["default"]
-            ));
+                )),
+                "select":new OpenLayers.Style(
+                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:20}
+                    )
+            });
 
-            var tsu_style = new OpenLayers.StyleMap(OpenLayers.Util.applyDefaults(
+            var tsu_style = new OpenLayers.StyleMap({
+                "default": new OpenLayers.Style(OpenLayers.Util.applyDefaults(
                     {fillColor:"#c1e2ea", fillOpacity:0.5, strokeColor:"#c1e2ea", strokeWidth:5, pointRadius: 10},
                     OpenLayers.Feature.Vector.style["default"]
-            ));
+                )),
+                "select":new OpenLayers.Style(
+                    {fillColor:"#FFDE00", fillOpacity:0.5, strokeColor:"#FFDE00", strokeWidth:5, pointRadius:20}
+                    )
+            });
+
+
             // This is the end of the layer
             //Declaration of vector layers holding hazard data
             var flashFloodLayer = new OpenLayers.Layer.Vector("Flash Flood Layer", {
@@ -105,6 +195,20 @@
                     })
                 })
             });
+//=======================================================================
+    flashFloodLayer.events.on({
+    'beforefeaturemodified': reportEvent,
+    'featuremodified': reportEvent,
+    'afterfeaturemodified': reportEvent,
+    'beforefeatureremoved': reportEvent,
+    'featureremoved': reportEvent,
+    'vertexmodified': reportEvent,
+    'sketchmodified': reportEvent,
+    'sketchstarted': reportEvent,
+    'sketchcomplete': reportEvent
+});
+//=======================================================================================================================
+
             var coastalFloodLayer = new OpenLayers.Layer.Vector("Coastal Flood Layer", {
                 styleMap:cf_style,
                 strategies:[
@@ -201,58 +305,167 @@
                     })
                 })
             });
+//==============================================================================================================
+            var geoJSON = new OpenLayers.Format.GeoJSON();
+            var var_ff = document.getElementById('container1').innerHTML;
+            var var_cf = document.getElementById('container2').innerHTML;
+            var var_uf = document.getElementById('container3').innerHTML;
+            var var_fl = document.getElementById('container4').innerHTML;
+            var var_pl = document.getElementById('container5').innerHTML;
+            var var_ll = document.getElementById('container6').innerHTML;
+            var var_fa = document.getElementById('container7').innerHTML;
+            var var_vol = document.getElementById('container8').innerHTML;
+            var var_tsu = document.getElementById('container9').innerHTML;
+            var valid, prevFlashFeatures;
 
+            
+                if(var_ff){
+                    valid = JSON.stringify(eval("("+var_ff+")"));
+                    prevFlashFeatures = getJSONdata(valid);
+           
+                    flashFloodLayer.addFeatures(prevFlashFeatures);
+                }
+                if(var_cf){
+                    valid = JSON.stringify(eval("("+var_cf+")"));
+                    prevFlashFeatures = getJSONdata(valid);
+           
+                    coastalFloodLayer.addFeatures(prevFlashFeatures);
+                }
+                if(var_uf){
+                    valid = JSON.stringify(eval("("+var_uf+")"));
+                    prevFlashFeatures = getJSONdata(valid);
+            
+                    urbanFloodLayer.addFeatures(prevFlashFeatures);
+                }
+                if(var_fl){
+                    valid = JSON.stringify(eval("("+var_fl+")"));
+                    prevFlashFeatures = getJSONdata(valid);
+           
+                    fluvialLayer.addFeatures(prevFlashFeatures);
+                }
+                if(var_pl){
+                    valid = JSON.stringify(eval("("+var_pl+")"));
+                    prevFlashFeatures = getJSONdata(valid);
+           
+                    pluvialLayer.addFeatures(prevFlashFeatures);
+                }
+                if(var_ll){
+                    valid = JSON.stringify(eval("("+var_ll+")"));
+                    prevFlashFeatures = getJSONdata(valid);
+           
+                    landslideLayer.addFeatures(prevFlashFeatures);
+                }
+                if(var_fa){
+                    valid = JSON.stringify(eval("("+var_fa+")"));
+                    prevFlashFeatures = getJSONdata(valid);
+           
+                    faultsLayer.addFeatures(prevFlashFeatures);
+                }
+                if(var_vol){
+                    valid = JSON.stringify(eval("("+var_vol+")"));
+                    prevFlashFeatures = getJSONdata(valid);
+           
+                    volcanicLayer.addFeatures(prevFlashFeatures);
+                }
+                if(var_tsu){
+                    valid = JSON.stringify(eval("("+var_tsu+")"));
+                    prevFlashFeatures = getJSONdata(valid);
+           
+                    tsunamiLayer.addFeatures(prevFlashFeatures);
+                }
+
+//==========================================================================================================
+//==============================================================================================================
             map.addLayers([flashFloodLayer, coastalFloodLayer, urbanFloodLayer, fluvialLayer, pluvialLayer, landslideLayer, faultsLayer, volcanicLayer, tsunamiLayer]);
             map.addControl(new OpenLayers.Control.LayerSwitcher());
             map.addControl(new OpenLayers.Control.MousePosition());
 
+//========================================================================================================================
+
+            selectControl = new OpenLayers.Control.SelectFeature(
+                [
+                    flashFloodLayer,
+                    coastalFloodLayer,
+                    urbanFloodLayer,
+                    fluvialLayer,
+                    pluvialLayer,
+                    landslideLayer,
+                    faultsLayer,
+                    volcanicLayer,
+                    tsunamiLayer
+                ],{
+                    onSelect: onFeatureSelect, onUnselect: onFeatureUnselect,
+                    clickout: true, toggle: false,
+                    multiple: false, hover: false,
+                    toggleKey: "ctrlKey", //ctrl key removes from selection
+                    multipleKey: "shiftKey" //shift key adds to selection
+                }
+                
+            );
+            map.addControl(selectControl);
+            selectControl.activate();
+//=========================================================================================================================
 //Edit panels
-            var editPanelFlash = new OpenLayers.Control.Panel({displayClass: 'editPanel'});
-            var editPanelCoastal = new OpenLayers.Control.Panel({displayClass: 'editPanel'});
-            var editPanelUrban = new OpenLayers.Control.Panel({displayClass: 'editPanel'});
-            var editPanelRiver = new OpenLayers.Control.Panel({displayClass: 'editPanel'});
-            var editPanelPond = new OpenLayers.Control.Panel({displayClass: 'editPanel'});
-            var editPanelLandslide = new OpenLayers.Control.Panel({displayClass: 'editPanel'});
-            var editPanelFault = new OpenLayers.Control.Panel({displayClass: 'editPanel'});
-            var editPanelVolcanic = new OpenLayers.Control.Panel({displayClass: 'editPanel'});
-            var editPanelTsunami = new OpenLayers.Control.Panel({displayClass: 'editPanel'});
+            var editPanelFlash = new OpenLayers.Control.Panel({displayClass: 'editPanelFlash'});
+            var editPanelCoastal = new OpenLayers.Control.Panel({displayClass: 'editPanelCoastal'});
+            var editPanelUrban = new OpenLayers.Control.Panel({displayClass: 'editPanelUrban'});
+            var editPanelRiver = new OpenLayers.Control.Panel({displayClass: 'editPanelRiver'});
+            var editPanelPond = new OpenLayers.Control.Panel({displayClass: 'editPanelPond'});
+            var editPanelLandslide = new OpenLayers.Control.Panel({displayClass: 'editPanelLandslide'});
+            var editPanelFault = new OpenLayers.Control.Panel({displayClass: 'editPanelFault'});
+            var editPanelVolcanic = new OpenLayers.Control.Panel({displayClass: 'editPanelVolcanic'});
+            var editPanelTsunami = new OpenLayers.Control.Panel({displayClass: 'editPanelTsunami'});
+
+
 //Adding controls to panels
-            editPanel.addControls([
+            editPanelFlash.addControls([
+                new OpenLayers.Control.ModifyFeature(flashFloodLayer,{ title:'Edit feature'}),
+                new DeleteFeature(flashFloodLayer,{title:'Delete Feature'})
+                
+            ]);
+            
+            editPanelCoastal.addControls([
                 new OpenLayers.Control.ModifyFeature(coastalFloodLayer,{ title:'Edit feature'}),
-                new DeleteFeature(coastalFloodLayer,{title:'Delete Feature'}),
-                new OpenLayers.Control.Button({displayClass: 'saveButton', trigger: function(){saveStrategy.save()}, title:'Save changes'})
-                
+                new DeleteFeature(coastalFloodLayer,{title:'Delete Feature'})                
             ]);
             
-            editPanel.addControls([
-                new OpenLayers.Control.ModifyFeature(flashFloodLayer,{ title:'Edit feature'}),
-                new DeleteFeature(flashFloodLayer,{title:'Delete Feature'}),
-                new OpenLayers.Control.Button({displayClass: 'saveButton', trigger: function(){saveStrategy.save()}, title:'Save changes'})
-                
+            editPanelUrban.addControls([
+                new OpenLayers.Control.ModifyFeature(urbanFloodLayer,{ title:'Edit feature'}),
+                new DeleteFeature(urbanFloodLayer,{title:'Delete Feature'})                
             ]);
             
-            editPanel.addControls([
-                new OpenLayers.Control.ModifyFeature(flashFloodLayer,{ title:'Edit feature'}),
-                new DeleteFeature(flashFloodLayer,{title:'Delete Feature'}),
-                new OpenLayers.Control.Button({displayClass: 'saveButton', trigger: function(){saveStrategy.save()}, title:'Save changes'})
-                
+            editPanelRiver.addControls([
+                new OpenLayers.Control.ModifyFeature(fluvialLayer,{ title:'Edit feature'}),
+                new DeleteFeature(fluvialLayer,{title:'Delete Feature'})               
             ]);
             
-            editPanel.addControls([
-                new OpenLayers.Control.ModifyFeature(flashFloodLayer,{ title:'Edit feature'}),
-                new DeleteFeature(flashFloodLayer,{title:'Delete Feature'}),
-                new OpenLayers.Control.Button({displayClass: 'saveButton', trigger: function(){saveStrategy.save()}, title:'Save changes'})
-                
+            editPanelPond.addControls([
+                new OpenLayers.Control.ModifyFeature(pluvialLayer,{ title:'Edit feature'}),
+                new DeleteFeature(pluvialLayer,{title:'Delete Feature'})               
             ]);
-            
-            editPanel.addControls([
-                new OpenLayers.Control.ModifyFeature(flashFloodLayer,{ title:'Edit feature'}),
-                new DeleteFeature(flashFloodLayer,{title:'Delete Feature'}),
-                new OpenLayers.Control.Button({displayClass: 'saveButton', trigger: function(){saveStrategy.save()}, title:'Save changes'})
-                
+
+            editPanelLandslide.addControls([
+                new OpenLayers.Control.ModifyFeature(landslideLayer,{ title:'Edit feature'}),
+                new DeleteFeature(landslideLayer,{title:'Delete Feature'})               
+            ]);
+
+            editPanelFault.addControls([
+                new OpenLayers.Control.ModifyFeature(faultsLayer,{ title:'Edit feature'}),
+                new DeleteFeature(faultsLayer,{title:'Delete Feature'})               
+            ]);
+
+            editPanelVolcanic.addControls([
+                new OpenLayers.Control.ModifyFeature(volcanicLayer,{ title:'Edit feature'}),
+                new DeleteFeature(volcanicLayer,{title:'Delete Feature'})              
+            ]);
+
+            editPanelTsunami.addControls([
+                new OpenLayers.Control.ModifyFeature(tsunamiLayer,{ title:'Edit feature'}),
+                new DeleteFeature(tsunamiLayer,{title:'Delete Feature'})    
             ]);
 	
-            map.addControl(editPanel);
+           // map.addControl(editPanelFlash);
+            
 //Declaration of feature controllers
             drawControls = {
             //flashFloodLayer feature controllers
@@ -291,13 +504,28 @@
                 tsu_point: new OpenLayers.Control.DrawFeature(tsunamiLayer, OpenLayers.Handler.Point),
                 tsu_line: new OpenLayers.Control.DrawFeature(tsunamiLayer, OpenLayers.Handler.Path),
                 tsu_polygon: new OpenLayers.Control.DrawFeature(tsunamiLayer,OpenLayers.Handler.Polygon),
+            //============
+                 modify: new OpenLayers.Control.ModifyFeature(null, {
+                    layers:[flashFloodLayer,
+                            coastalFloodLayer,
+                            urbanFloodLayer,
+                            fluvialLayer,
+                            pluvialLayer,
+                            landslideLayer,
+                            faultsLayer,
+                            volcanicLayer,
+                            tsunamiLayer
+                    ], 
+                    mode: OpenLayers.Control.ModifyFeature.VERTICES |
+                    OpenLayers.Control.ModifyFeature.DELETE
+                })
             };
 
             for(var key in drawControls){
                 map.addControl(drawControls[key]);
             }
 
-            document.getElementById('noneToggle').checked = true;
+             document.getElementById('noneToggle').checked = true;
 
             var switcherControl = new OpenLayers.Control.LayerSwitcher();
             map.addControl(switcherControl);
@@ -307,20 +535,54 @@
                 var lonLat = new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject());
                 map.setCenter (lonLat, zoom);
             }
+//=========================================================================================
+           
+            document.getElementById('remove').onclick = function(){
+                var key = "modify";
+                var control_remove = drawControls[key];
 
-        }
-
-        function toggleControl(element){
-            for(key in drawControls){
-                var control = drawControls[key];
-                if(element.value == key && element.checked){
-                    control.activate();
-                } else{
-                    control.deactivate();
-                }
+                control_remove.activate();
             }
-        }
 
+            document.getElementById('button').onclick = function(){
+                var geoJSON = new OpenLayers.Format.GeoJSON();
+                ff = geoJSON.write(flashFloodLayer.features);
+                cf = geoJSON.write(coastalFloodLayer.features);
+                uf = geoJSON.write(urbanFloodLayer.features);
+                fl = geoJSON.write(fluvialLayer.features);
+                pl = geoJSON.write(pluvialLayer.features);
+                ll = geoJSON.write(landslideLayer.features);
+                fa = geoJSON.write(faultsLayer.features);
+                vol = geoJSON.write(volcanicLayer.features);
+                tsu = geoJSON.write(tsunamiLayer.features);
+                //alert(ff);
+                $.ajax({
+                    url: 'geohazards_2.php',
+                    type: 'POST',
+                    data: {
+                        ff:ff,
+                        cf:cf,
+                        uf:uf,
+                        fl:fl,
+                        pl:pl,
+                        ll:ll,
+                        fa:fa,
+                        vol:vol,
+                        tsu:tsu
+                    },
+                    success: function(data){
+                        console.log(data);
+                        alert(data);
+                    }
+                });
+
+            } 
+
+            document.getElementById('logout').onclick = function(){
+                location.href = "geohazards_guest_2.php";
+            } 
+        }
+//=========================================================================================
         function allowPan(element){
             var stop = !element.checked;
             for(var key in drawControls){
@@ -353,8 +615,7 @@
 
             //get the description or other specifications entered by the user
             hazardDescription = document.getElementById("description").value;
-          
-            //alert(hazardDescription); 
+
             if (hazardType == "flashflood") {
                 if (featureType == "point") {
                     key = "ff_point";
@@ -435,6 +696,23 @@
             control.activate();
         }
 
+        function toggleControl(element) {
+                for(key in drawControls) {
+                    var control = drawControls[key];
+                    if(element.value == key && element.checked) {
+                        control.activate();
+                    } else {
+                        control.deactivate();
+                    }
+                }
+            }
+
+        function getJSONdata(valid){
+            var geoJSON = new OpenLayers.Format.GeoJSON(); 
+            var features_ff = geoJSON.read(valid,"FeatureCollection");
+            
+            return features_ff;
+        }
 
 DeleteFeature = OpenLayers.Class(OpenLayers.Control,{
     initialize: function(layer, options){
