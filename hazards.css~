@@ -15,13 +15,6 @@ body{
 	margin:5px;
 	height:95%;
 }
-
-.btn-lg{
-	float: left;
-	margin: 5px;
-}
-
-
 #feature-type{
 	width:20%;
 }

@@ -176,32 +176,15 @@
         </div>
         <div class="inner" id="btn-panel">
 
-            <table>
-        		<tr>
-        			<td>
-        				<button type="button" class="btn btn-success btn-lg" style="width:190px;" onclick="addToMap();">
-                 			<span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Add to Map
-            			</button>	
-        			</td>
-        			<td>
-        				<button type="submit" class="btn btn-default btn-lg" style="width:190px;" id="button">
-                 			<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Save Map
-            			</button>
-        			</td>
-        		</tr>
-        		<tr>
-        			<td>
-        				<button type="button" class="btn btn-danger btn-lg" id="remove" style="width:190px;" data-toggle="button" aria-pressed="false" autocomplete="off">
-  							<span class="glyphicon glyphicon-fire" aria-hidden="true"></span>Remove Feature
-						</button>
-        			</td>
-        			<td>
-        				<button type="button" class="btn btn-primary btn-lg" style="width:190px;" id="logout">
-                 			<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout
-            			</button>
-        			</td>
-        		</tr>
-        	</table>
+            <button type="button" class="btn btn-danger btn-lg" onclick="addToMap();">
+                 <span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Add to Map
+            </button>
+            <button type="submit" class="btn btn-default btn-lg" id="button">
+                 <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Save Map
+            </button>
+            <button type="button" class="btn btn-primary btn-lg" id="logout">
+                 <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout
+            </button>
         </div>
        
     </div>
