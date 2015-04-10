@@ -191,7 +191,7 @@
         		</tr>
         		<tr>
         			<td>
-        				<button type="button" class="btn btn-danger btn-lg" id="remove" style="width:190px;" data-toggle="button" aria-pressed="false" autocomplete="off">
+        				<button type="button" class="btn btn-danger btn-lg" id="remove" style="width:190px;" onclick="removeFeature();">
   							<span class="glyphicon glyphicon-fire" aria-hidden="true"></span>Remove Feature
 						</button>
         			</td>

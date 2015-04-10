@@ -3,11 +3,12 @@
         var lon=121.222115;
         var zoom=14;
  
-        var map, drawControls, selectControl, selectedFeature; //complex object of type OpenLayers.Map
+        var map, drawControls, selectControl, selectedFeature = null; //complex object of type OpenLayers.Map
         
 
         function onPopupExit(evt){
             selectControl.unselect(selectedFeature);
+            selectedFeature = null;
         }
 
         function onFeatureSelect(feature){
@@ -34,6 +35,10 @@
             map.removePopup(feature.popup);
             feature.popup.destroy();
             feature.popup = null;
+        }
+        
+        function removeFeature(){
+        	alert(selectedFeature.id);
         }
 
         //Initialise the 'map' object
