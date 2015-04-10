@@ -97,6 +97,10 @@
  ?>
 <head>
     <title>Geohazards layer</title>
+<<<<<<< HEAD
+=======
+    <!--<link rel="stylesheet" href="style.css" type="text/css" />-->
+>>>>>>> develop
     <link rel="stylesheet" type="text/css" href="hazards.css">
     <!-- Bootstrap -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -109,6 +113,7 @@
          Using this hosted file will make sure we are kept up
          to date with any necessary changes -->
     <script src="OpenStreetMap.js"></script>
+<<<<<<< HEAD
     <script src="geohazards.js"></script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -118,6 +123,15 @@
     <!-- To improve editing by separate and add delete and custom tools and allows undo by <esc-key> -->
     <script src="OL_Ragbag/lib/Ragbag/Control/ModifyFeature-tools.js"></script>
  	
+=======
+ 
+    <script src="geohazards.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="bootstrap2/dist/js/bootstrap-select.min.js"></script>
+>>>>>>> develop
     
 </head>
  
@@ -176,7 +190,12 @@
             </div>
         </div>
         <div class="inner" id="btn-panel">
+<<<<<<< HEAD
         	<table>
+=======
+
+            <table>
+>>>>>>> develop
         		<tr>
         			<td>
         				<button type="button" class="btn btn-success btn-lg" style="width:190px;" onclick="addToMap();">
@@ -202,10 +221,13 @@
         			</td>
         		</tr>
         	</table>
+<<<<<<< HEAD
             
             
             
             
+=======
+>>>>>>> develop
         </div>
        
     </div>
@@ -218,7 +240,10 @@
     <p id="container7"><?php echo $fa_feature; ?></p>
     <p id="container8"><?php echo $vol_feature; ?></p>
     <p id="container9"><?php echo $tsu_feature; ?></p>
+<<<<<<< HEAD
     
+=======
+>>>>>>> develop
 </body>
  
 </html>

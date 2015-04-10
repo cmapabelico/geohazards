@@ -176,7 +176,12 @@
             </div>
         </div>
         <div class="inner" id="btn-panel">
+<<<<<<< HEAD
         	<table>
+=======
+
+            <table>
+>>>>>>> develop
         		<tr>
         			<td>
         				<button type="button" class="btn btn-success btn-lg" style="width:190px;" onclick="addToMap();">
@@ -191,7 +196,11 @@
         		</tr>
         		<tr>
         			<td>
+<<<<<<< HEAD
         				<button type="button" class="btn btn-danger btn-lg" id="remove" style="width:190px;" data-toggle="button" aria-pressed="false" autocomplete="off">
+=======
+        				<button type="button" class="btn btn-danger btn-lg" id="remove" style="width:190px;" onclick="removeFeature();">
+>>>>>>> develop
   							<span class="glyphicon glyphicon-fire" aria-hidden="true"></span>Remove Feature
 						</button>
         			</td>
@@ -202,10 +211,13 @@
         			</td>
         		</tr>
         	</table>
+<<<<<<< HEAD
             
             
             
             
+=======
+>>>>>>> develop
         </div>
        
     </div>

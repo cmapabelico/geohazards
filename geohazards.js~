@@ -3,11 +3,19 @@
         var lon=121.222115;
         var zoom=14;
  
+<<<<<<< HEAD
         var map, drawControls, selectControl, selectedFeature; //complex object of type OpenLayers.Map
+=======
+        var map, drawControls, selectControl, selectedFeature = null; //complex object of type OpenLayers.Map
+>>>>>>> develop
         
 
         function onPopupExit(evt){
             selectControl.unselect(selectedFeature);
+<<<<<<< HEAD
+=======
+            selectedFeature = null;
+>>>>>>> develop
         }
 
         function onFeatureSelect(feature){
@@ -35,6 +43,7 @@
             feature.popup.destroy();
             feature.popup = null;
         }
+<<<<<<< HEAD
 
         //Initialise the 'map' object
         function init() {
@@ -48,6 +57,17 @@
             } else {
                 reportEvent = function() {};
             }   
+=======
+        
+        function removeFeature(){
+        	alert(selectedFeature.id);
+        	//selectedFeature.id = null;
+        }
+
+        //Initialise the 'map' object
+        function init() {
+          
+>>>>>>> develop
             
             map = new OpenLayers.Map ("map", {
                 controls:[
@@ -195,6 +215,7 @@
                     })
                 })
             });
+<<<<<<< HEAD
 //=======================================================================
     flashFloodLayer.events.on({
     'beforefeaturemodified': reportEvent,
@@ -207,6 +228,8 @@
     'sketchstarted': reportEvent,
     'sketchcomplete': reportEvent
 });
+=======
+>>>>>>> develop
 //=======================================================================================================================
 
             var coastalFloodLayer = new OpenLayers.Layer.Vector("Coastal Flood Layer", {
@@ -536,6 +559,7 @@
                 map.setCenter (lonLat, zoom);
             }
 //=========================================================================================
+<<<<<<< HEAD
            
             document.getElementById('remove').onclick = function(){
                 var key = "modify";
@@ -578,6 +602,43 @@
 
             } 
 
+=======
+
+            document.getElementById('button').onclick = function(){
+                var geoJSON = new OpenLayers.Format.GeoJSON();
+                ff = geoJSON.write(flashFloodLayer.features);
+                cf = geoJSON.write(coastalFloodLayer.features);
+                uf = geoJSON.write(urbanFloodLayer.features);
+                fl = geoJSON.write(fluvialLayer.features);
+                pl = geoJSON.write(pluvialLayer.features);
+                ll = geoJSON.write(landslideLayer.features);
+                fa = geoJSON.write(faultsLayer.features);
+                vol = geoJSON.write(volcanicLayer.features);
+                tsu = geoJSON.write(tsunamiLayer.features);
+                //alert(ff);
+                $.ajax({
+                    url: 'geohazards_2.php',
+                    type: 'POST',
+                    data: {
+                        ff:ff,
+                        cf:cf,
+                        uf:uf,
+                        fl:fl,
+                        pl:pl,
+                        ll:ll,
+                        fa:fa,
+                        vol:vol,
+                        tsu:tsu
+                    },
+                    success: function(data){
+                        console.log(data);
+                        alert(data);
+                    }
+                });
+
+            } 
+
+>>>>>>> develop
             document.getElementById('logout').onclick = function(){
                 location.href = "geohazards_guest_2.php";
             } 

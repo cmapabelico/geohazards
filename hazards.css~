@@ -15,6 +15,7 @@ body{
 	margin:5px;
 	height:95%;
 }
+<<<<<<< HEAD
 
 .btn-lg{
 	float: left;
@@ -22,6 +23,10 @@ body{
 }
 #feature-type{
 	width:12%;
+=======
+#feature-type{
+	width:20%;
+>>>>>>> develop
 }
 
 #geo-type{
@@ -34,6 +39,7 @@ body{
 #details{
 	width:30%;
 }
+<<<<<<< HEAD
 
 input[type=checkbox] + label {
   color:#f00 ;
@@ -46,11 +52,19 @@ input[type=checkbox]:checked + label {
 
 
 div.editPanelUrban{
+=======
+/*edit panels css*/
+div.editPanelFlash{
+>>>>>>> develop
 	bottom: 100px;
 	left:50px;
 	position:absolute;
 }
+<<<<<<< HEAD
 	.editPanelUrban div{
+=======
+	.editPanelFlash div{
+>>>>>>> develop
 		width: 22px;
 		height: 22px;
 		border: thin solid black;
@@ -59,8 +73,16 @@ div.editPanelUrban{
 	}
 
 
+<<<<<<< HEAD
 
 
+=======
+.saveButtonItemActive {background-position: 0px -299px; }
+.saveButtonItemInactive {background-position: 0px -276px;}
+.geo-type{
+	float: left;
+}
+>>>>>>> develop
 
 #details{
 	float: left;
