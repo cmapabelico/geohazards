@@ -21,7 +21,7 @@ body{
 	margin: 5px;
 }
 
-#layerModal.modal-dialog{
+#layers{
 	width: 300px;
 	font-size: 150%;
 }
@@ -46,8 +46,8 @@ div.modal-body{
 }
 /*edit panels css*/
 div.editPanelFlash{
-	bottom: 100px;
-	left:50px;
+	bottom: 0px;
+	left:120px;
 	position:absolute;
 }
 	.editPanelFlash div{
@@ -58,6 +58,59 @@ div.editPanelFlash{
 		margin-top: 10px;
 	}
 
+div.editPanelCoastal{
+	bottom: 0px;
+	left:150px;
+	position:absolute;
+}
+	.editPanelCoastal div{
+		width: 22px;
+		height: 22px;
+		border: thin solid black;
+		background: blue;
+		margin-top: 10px;
+	}
+
+div.editPanelUrban{
+	bottom: 0px;
+	left:180px;
+	position:absolute;
+}
+	.editPanelUrban div{
+		width: 22px;
+		height: 22px;
+		border: thin solid black;
+		background: white;
+		margin-top: 10px;
+	}
+	
+	
+div.editPanelRiver{
+	bottom: 0px;
+	left:210px;
+	position:absolute;
+}
+	.editPanelRiver div{
+		width: 22px;
+		height: 22px;
+		border: thin solid black;
+		background: black;
+		margin-top: 10px;
+	}
+	
+	
+div.editPanelPond{
+	bottom: 0px;
+	left:240px;
+	position:absolute;
+}
+	.editPanelPond div{
+		width: 22px;
+		height: 22px;
+		border: thin solid black;
+		background: yellow;
+		margin-top: 10px;
+	}
 
 .saveButtonItemActive {background-position: 0px -299px; }
 .saveButtonItemInactive {background-position: 0px -276px;}

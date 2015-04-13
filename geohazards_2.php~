@@ -49,6 +49,7 @@
    $fa = $_POST['fa'];
    $vol = $_POST['vol'];
    $tsu = $_POST['tsu'];
+   $layer = $_POST['1'];
 
    $ffVar = strcmp($ff, "{\"type\":\"FeatureCollection\",\"features\":[]}");
    $cfVar = strcmp($cf, "{\"type\":\"FeatureCollection\",\"features\":[]}");
@@ -214,17 +215,17 @@
     <p id="container7"><?php echo $fa_feature; ?></p>
     <p id="container8"><?php echo $vol_feature; ?></p>
     <p id="container9"><?php echo $tsu_feature; ?></p>
-    
+      
     
     
      <div class="modal fade" id="layerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog" id="layers">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h2 class="modal-title" id="myModalLabel">Choose Layer</h4>
       </div>
-      <form name="form1" method="post" action="checklogin2.php">
+      <!--<form name="form1" method="post" action="geohazards_2.php">-->
       <div class="modal-body">
        
         <input type="radio" name="hazardLayerOptions" id="flashFlood" value="1"> Flashflood Layer <br/>
@@ -238,10 +239,10 @@
         <input type="radio" name="hazardLayerOptions" id="tsunami" value="9"> Tsunami Layer
         
       </div>
-      <div class="modal-footer">
-        <input type="submit" class="btn btn-primary btn-lg" name="Submit" value="Continue">
-      </div>
-      </form>
+     <!-- <div class="modal-footer">
+        <input type="button" class="btn btn-primary btn-lg" value="Continue" onclick="removeFeature();" >
+      </div>-->
+     <!-- </form>-->
     </div>
   </div>
 </div>
