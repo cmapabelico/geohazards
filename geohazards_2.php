@@ -191,7 +191,7 @@
         		</tr>
         		<tr>
         			<td>
-        				<button type="button" class="btn btn-danger btn-lg" id="remove" style="width:190px;" onclick="removeFeature();">
+        				<button type="button" class="btn btn-danger btn-lg" id="remove" style="width:190px;" data-toggle="modal" data-target="#layerModal">
   							<span class="glyphicon glyphicon-fire" aria-hidden="true"></span>Remove Feature
 						</button>
         			</td>
@@ -214,6 +214,37 @@
     <p id="container7"><?php echo $fa_feature; ?></p>
     <p id="container8"><?php echo $vol_feature; ?></p>
     <p id="container9"><?php echo $tsu_feature; ?></p>
+    
+    
+    
+     <div class="modal fade" id="layerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h2 class="modal-title" id="myModalLabel">Choose Layer</h4>
+      </div>
+      <form name="form1" method="post" action="checklogin2.php">
+      <div class="modal-body">
+       
+        <input type="radio" name="hazardLayerOptions" id="flashFlood" value="1"> Flashflood Layer <br/>
+        <input type="radio" name="hazardLayerOptions" id="coastalFlood" value="2"> Coastal flood Layer <br/>
+   	<input type="radio" name="hazardLayerOptions" id="urbanFlood" value="3"> Urban flood Layer <br/>
+        <input type="radio" name="hazardLayerOptions" id="riverFlood" value="4"> River flood Layer <br/>
+        <input type="radio" name="hazardLayerOptions" id="pondFlood" value="5"> Pond flood Layer <br/>	
+        <input type="radio" name="hazardLayerOptions" id="landslide" value="6"> Landslide Layer <br/>
+        <input type="radio" name="hazardLayerOptions" id="faults" value="7"> Faults Layer <br/>
+        <input type="radio" name="hazardLayerOptions" id="volcanic" value="8"> Volcanic Layer <br/>
+        <input type="radio" name="hazardLayerOptions" id="tsunami" value="9"> Tsunami Layer
+        
+      </div>
+      <div class="modal-footer">
+        <input type="submit" class="btn btn-primary btn-lg" name="Submit" value="Continue">
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
 </body>
  
 </html>

@@ -9,6 +9,7 @@
         function onPopupExit(evt){
             selectControl.unselect(selectedFeature);
             selectedFeature = null;
+            alert("here");
         }
 
         function onFeatureSelect(feature){
@@ -35,11 +36,21 @@
             map.removePopup(feature.popup);
             feature.popup.destroy();
             feature.popup = null;
+            alert("meh");
         }
         
         function removeFeature(){
-        	alert(selectedFeature.id);
-        	//selectedFeature.id = null;
+        	var feature = new OpenLayers.Feature.Vector();
+        	feature = selectedFeature;
+        	map.removePopup(feature.popup);
+            	feature.popup.destroy();
+            	feature.popup = null;
+            	alert("3."+feature.id);
+        	flashFloodLayer.removeFeatures(feature);
+        	
+        	//selectControl.unselect(feature);
+        	alert("3."+selectedFeature.id);
+        	
         }
 
         //Initialise the 'map' object

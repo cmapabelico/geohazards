@@ -15,6 +15,21 @@ body{
 	margin:5px;
 	height:95%;
 }
+
+.btn-lg{
+	float: left;
+	margin: 5px;
+}
+
+div.modal-dialog{
+	width: 300px;
+	font-size: 150%;
+}
+
+div.modal-body{
+	padding-left: 50px;
+}
+
 #feature-type{
 	width:20%;
 }

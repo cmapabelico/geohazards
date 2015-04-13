@@ -21,6 +21,14 @@ body{
 	margin: 5px;
 }
 
+div.modal-dialog{
+	width: 300px;
+	font-size: 150%;
+}
+
+div.modal-body{
+	padding-left: 40px;
+}
 
 #feature-type{
 	width:20%;

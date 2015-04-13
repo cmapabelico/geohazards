@@ -9,6 +9,7 @@
         function onPopupExit(evt){
             selectControl.unselect(selectedFeature);
             selectedFeature = null;
+            alert("here");
         }
 
         function onFeatureSelect(feature){
@@ -35,10 +36,21 @@
             map.removePopup(feature.popup);
             feature.popup.destroy();
             feature.popup = null;
+            alert("meh");
         }
         
         function removeFeature(){
-        	alert(selectedFeature.id);
+        	var feature = new OpenLayers.Feature.Vector();
+        	feature = selectedFeature;
+        	map.removePopup(feature.popup);
+            	feature.popup.destroy();
+            	feature.popup = null;
+            	alert("3."+feature.id);
+        	flashFloodLayer.removeFeatures(feature);
+        	
+        	//selectControl.unselect(feature);
+        	alert("3."+selectedFeature.id);
+        	
         }
 
         //Initialise the 'map' object
@@ -448,7 +460,7 @@
                 new DeleteFeature(tsunamiLayer,{title:'Delete Feature'})    
             ]);
 	
-           // map.addControl(editPanelFlash);
+            map.addControl(editPanelFlash);
             
 //Declaration of feature controllers
             drawControls = {
