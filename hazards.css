@@ -21,7 +21,7 @@ body{
 	margin: 5px;
 }
 
-div.modal-dialog{
+#layers{
 	width: 300px;
 	font-size: 150%;
 }

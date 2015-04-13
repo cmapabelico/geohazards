@@ -239,7 +239,7 @@
         
       </div>
       <div class="modal-footer">
-        <input type="submit" class="btn btn-primary btn-lg" name="Submit" value="Login">
+        <input type="submit" class="btn btn-primary btn-lg" name="Submit" value="Continue">
       </div>
       </form>
     </div>

@@ -21,13 +21,13 @@ body{
 	margin: 5px;
 }
 
-div.modal-dialog{
+#layerModal.modal-dialog{
 	width: 300px;
 	font-size: 150%;
 }
 
 div.modal-body{
-	padding-left: 50px;
+	padding-left: 40px;
 }
 
 #feature-type{
