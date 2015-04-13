@@ -3,13 +3,12 @@
         var lon=121.222115;
         var zoom=14;
  
-        var map, drawControls, selectControl, selectedFeature = null; //complex object of type OpenLayers.Map
+        var map, drawControls, selectControl, selectedFeature; //complex object of type OpenLayers.Map
         
 
         function onPopupExit(evt){
             selectControl.unselect(selectedFeature);
             selectedFeature = null;
-            alert("here");
         }
 
         function onFeatureSelect(feature){
@@ -387,14 +386,7 @@
             map.addControl(selectControl);
             selectControl.activate();
 //=========================================================================================================================
-//Tells which layer the control panel will be affecting
-	    var layers = document.getElementsByName('hazardLayerOptions');
-	    
-	    for (var i = layers.length; i--;) {
-   		 layers[i].onchange = function() {
-      		  alert(this.value);
-   		 }
-	    }
+
 //Edit panels
             var editPanelFlash = new OpenLayers.Control.Panel({displayClass: 'editPanelFlash'});
             var editPanelCoastal = new OpenLayers.Control.Panel({displayClass: 'editPanelCoastal'});

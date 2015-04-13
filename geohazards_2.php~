@@ -228,15 +228,15 @@
       <!--<form name="form1" method="post" action="geohazards_2.php">-->
       <div class="modal-body">
        
-        <input type="radio" name="hazardLayerOptions" id="flashFlood" value="1"> Flashflood Layer <br/>
-        <input type="radio" name="hazardLayerOptions" id="coastalFlood" value="2"> Coastal flood Layer <br/>
-   	<input type="radio" name="hazardLayerOptions" id="urbanFlood" value="3"> Urban flood Layer <br/>
-        <input type="radio" name="hazardLayerOptions" id="riverFlood" value="4"> River flood Layer <br/>
-        <input type="radio" name="hazardLayerOptions" id="pondFlood" value="5"> Pond flood Layer <br/>	
-        <input type="radio" name="hazardLayerOptions" id="landslide" value="6"> Landslide Layer <br/>
-        <input type="radio" name="hazardLayerOptions" id="faults" value="7"> Faults Layer <br/>
-        <input type="radio" name="hazardLayerOptions" id="volcanic" value="8"> Volcanic Layer <br/>
-        <input type="radio" name="hazardLayerOptions" id="tsunami" value="9"> Tsunami Layer
+        <input type="radio" name="hazardLayerOptions" id="flashFlood" value="flashFlood"> Flashflood Layer <br/>
+        <input type="radio" name="hazardLayerOptions" id="coastalFlood" value="coastalFlood"> Coastal flood Layer <br/>
+   	<input type="radio" name="hazardLayerOptions" id="urbanFlood" value="urbanFlood"> Urban flood Layer <br/>
+        <input type="radio" name="hazardLayerOptions" id="riverFlood" value="riverFlood"> River flood Layer <br/>
+        <input type="radio" name="hazardLayerOptions" id="pondFlood" value="pondFlood"> Pond flood Layer <br/>	
+        <input type="radio" name="hazardLayerOptions" id="landslide" value="landslide"> Landslide Layer <br/>
+        <input type="radio" name="hazardLayerOptions" id="faults" value="faults"> Faults Layer <br/>
+        <input type="radio" name="hazardLayerOptions" id="volcanic" value="volcanic"> Volcanic Layer <br/>
+        <input type="radio" name="hazardLayerOptions" id="tsunami" value="tsunami"> Tsunami Layer
         
       </div>
      <!-- <div class="modal-footer">
