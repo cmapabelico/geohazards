@@ -54,7 +54,7 @@ div.editPanelFlash{
 		width: 22px;
 		height: 22px;
 		border: thin solid black;
-		background: red;
+		background: #1389ba;
 		margin-top: 10px;
 	}
 
@@ -67,7 +67,7 @@ div.editPanelCoastal{
 		width: 22px;
 		height: 22px;
 		border: thin solid black;
-		background: blue;
+		background: #89ba13;
 		margin-top: 10px;
 	}
 
@@ -80,7 +80,7 @@ div.editPanelUrban{
 		width: 22px;
 		height: 22px;
 		border: thin solid black;
-		background: white;
+		background: #ba1389;
 		margin-top: 10px;
 	}
 	
@@ -94,7 +94,7 @@ div.editPanelRiver{
 		width: 22px;
 		height: 22px;
 		border: thin solid black;
-		background: black;
+		background: #e46e1a;
 		margin-top: 10px;
 	}
 	
@@ -108,7 +108,7 @@ div.editPanelPond{
 		width: 22px;
 		height: 22px;
 		border: thin solid black;
-		background: yellow;
+		background: #3c1f3c;
 		margin-top: 10px;
 	}
 
@@ -121,7 +121,7 @@ div.editPanelLandslide{
 		width: 22px;
 		height: 22px;
 		border: thin solid black;
-		background: gray;
+		background: #ffb400;
 		margin-top: 10px;
 	}
 
@@ -135,7 +135,7 @@ div.editPanelFault{
 		width: 22px;
 		height: 22px;
 		border: thin solid black;
-		background: red;
+		background: #b26662;
 		margin-top: 10px;
 	}
 
@@ -149,7 +149,7 @@ div.editPanelVolcanic{
 		width: 22px;
 		height: 22px;
 		border: thin solid black;
-		background: blue;
+		background: #b00004;
 		margin-top: 10px;
 	}
 
@@ -163,7 +163,7 @@ div.editPanelTsunami{
 		width: 22px;
 		height: 22px;
 		border: thin solid black;
-		background: yellow;
+		background: #c1e2ea;
 		margin-top: 10px;
 	}
 
