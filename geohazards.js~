@@ -447,14 +447,14 @@
             ]);
 
             map.addControl(editPanelFlash);
-           /* map.addControl(editPanelCoastal);
+            map.addControl(editPanelCoastal);
             map.addControl(editPanelUrban);
             map.addControl(editPanelRiver);
             map.addControl(editPanelPond);
             map.addControl(editPanelLandslide);
             map.addControl(editPanelFault);
             map.addControl(editPanelVolcanic);
-            map.addControl(editPanelTsunami);*/
+            map.addControl(editPanelTsunami);
             
 //Declaration of feature controllers
             drawControls = {

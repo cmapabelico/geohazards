@@ -191,11 +191,11 @@
         			</td>
         		</tr>
         		<tr>
-        			<td>
+        			<!--<td>
         				<button type="button" class="btn btn-danger btn-lg" id="remove" style="width:190px;" data-toggle="modal" data-target="#layerModal">
   							<span class="glyphicon glyphicon-fire" aria-hidden="true"></span>Remove Feature
 						</button>
-        			</td>
+        			</td>-->
         			<td>
         				<button type="button" class="btn btn-primary btn-lg" style="width:190px;" id="logout">
                  			<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout
