@@ -1,0 +1,256 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>OpenLayers Click Event Example</title>
+
+        <link rel="stylesheet" href="../theme/default/style.css"
+type="text/css" />
+        <link rel="stylesheet" href="style.css" type="text/css" />
+        <script src="openlayers/OpenLayers.js"></script>
+        <script type="text/javascript">
+
+        var SHADOW_Z_INDEX = 10;
+        var MARKER_Z_INDEX = 11;
+        var DIAMETER = 200;
+        var NUMBER_OF_FEATURES = 15;
+
+        var selectedFeatureID = "None";
+
+            var map,layer2, layer, selectedFeature, dragFeature,
+selectControl  ;
+            function init(){
+                map = new OpenLayers.Map('map');
+                var ol_wms = new OpenLayers.Layer.WMS( "OpenLayers WMS",
+                    "http://labs.metacarta.com/wms/vmap0?", {layers:
+'basic'} );
+
+                var jpl_wms = new OpenLayers.Layer.WMS( "NASA Global
+Mosaic",
+                "http://t1.hypercube.telascience.org/cgi-bin/landsat7",
+                {layers: "landsat7"});
+
+                jpl_wms.setVisibility(false);
+                map.addLayers([ol_wms, jpl_wms]);
+                map.addControl(new OpenLayers.Control.LayerSwitcher());
+                // map.setCenter(new OpenLayers.LonLat(0, 0), 0);
+                map.zoomToMaxExtent();
+
+         layer = new OpenLayers.Layer.Vector("Vector Layer 1", {
+                styleMap: new OpenLayers.StyleMap({
+                    "default": new
+OpenLayers.Style(OpenLayers.Util.applyDefaults({
+                        externalGraphic: "${icon}",
+                  label : "${name}",
+                        graphicOpacity: 1,
+                  backgroundGraphic: "./marker_shadow.png",
+                  graphicYOffset: -25, // shift graphic up 28 pixels
+                        // Makes sure the background graphic is placed
+correctly relative
+                        // to the external graphic.
+                        backgroundXOffset: -2,
+                        backgroundYOffset: -20,
+                        // Set the z-indexes of both graphics to make sure
+the background
+                        // graphics stay in the background (shadows on top
+of markers looks
+                        // odd; let's not do that).
+                        graphicZIndex: MARKER_Z_INDEX,
+                        backgroundGraphicZIndex: SHADOW_Z_INDEX,
+                        pointRadius: 10
+                    }, OpenLayers.Feature.Vector.style["default"])),
+                    "select": new OpenLayers.Style({
+                        //externalGraphic: "../img/marker-blue.png",
+                  pointRadius: 15,
+                  graphicYOffset: -35,
+                  backgroundXOffset: -2,
+                        backgroundYOffset: -30
+                    })
+                })
+            });
+
+            map.addLayers([layer]);
+
+            // Add a drag feature control to move features around.
+            var dragFeature = new OpenLayers.Control.DragFeature(layer);
+            map.addControl(dragFeature);
+            dragFeature.activate();
+//-------------Coe suggested by Mr Ilya Braude -------------
+dragFeature.handlers['drag'].stopDown = false;
+dragFeature.handlers['drag'].stopUp = false;
+dragFeature.handlers['drag'].stopClick = false;
+dragFeature.handlers['feature'].stopDown = false;
+dragFeature.handlers['feature'].stopUp = false;
+dragFeature.handlers['feature'].stopClick = false;
+//-------------Coe suggested by Mr Ilya Braude-------------
+
+                var click = new OpenLayers.Control.Click();
+                map.addControl(click);
+                click.activate();
+
+        //vlayer = new OpenLayers.Layer.Vector( "Editable Vector Overlay" );
+           //map.addLayer(vlayer);
+        //map.addControl(new OpenLayers.Control.EditingToolbar(vlayer));
+        selectControl = new OpenLayers.Control.SelectFeature(
+                [layer],
+                {
+                    clickout: true, toggle: false,
+                    multiple: false, hover: false,
+                    toggleKey: "ctrlKey", // ctrl key removes from selection
+                    multipleKey: "shiftKey" // shift key adds to selection
+                }
+            );
+            map.addControl(selectControl);
+           selectControl.activate();
+           
+           
+           
+        layer.events.on({
+                "featureselected": function(e) {
+               var lonlat = map.getLonLatFromViewPortPx(e.xy);
+                    showSelectedStatus(e.feature);
+                },
+                "featureunselected": function(e) {
+                    showUnSelectedStatus(e.feature);
+                }
+            });
+            }
+
+         OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control,
+{
+                defaultHandlerOptions: {
+                    'single': true,
+                    'double': false,
+                    'pixelTolerance': 0,
+                    'stopSingle': false,
+                    'stopDouble': false
+                },
+
+                initialize: function(options) {
+                    this.handlerOptions = OpenLayers.Util.extend(
+                        {}, this.defaultHandlerOptions
+                    );
+                    OpenLayers.Control.prototype.initialize.apply(
+                        this, arguments
+                    );
+                    this.handler = new OpenLayers.Handler.Click(
+                        this, {
+                            'click': this.trigger
+                        }, this.handlerOptions
+                    );
+                },
+
+                trigger: function(e) {
+                  if (document.getElementById('pointToggle').checked ==
+true)
+              {     var lonlat = map.getLonLatFromViewPortPx(e.xy);
+                var features = [];
+                    var myMarker = new OpenLayers.Feature.Vector(new
+OpenLayers.Geometry.Point(lonlat.lon , lonlat.lat));
+                var MarkerLabel= document.getElementById("Marker
+Label").value;
+                var MarkerIcon= document.getElementById("Icon").value;
+                myMarker.attributes = {
+                                        name: MarkerLabel,
+                                icon: "../img/" + MarkerIcon + ".png",
+                                radius:10
+                                };
+                features.push(myMarker);
+                layer.addFeatures(features);
+              }
+                }
+
+            });
+
+      function showSelectedStatus(feature) {
+         selectedFeature = feature;
+               document.getElementById("status").innerHTML = "selected
+feature "+feature.geometry.getBounds().getCenterLonLat() +" on Vector Layer
+1";
+         }
+
+    function showUnSelectedStatus(feature) {
+            document.getElementById("status").innerHTML = "Un selected
+feature "+feature.id+" on Vector Layer 1";
+         selectedFeature = "None";
+        }
+
+    function DelMarker(){
+ 	layer.removeFeatures(layer.selectedFeatures);
+    }
+
+    function EditMarker()
+    {    if ( selectedFeature != "None")
+                {
+                layer.removeFeatures(layer.selectedFeatures);
+                var features = [];
+                    var myMarker = new OpenLayers.Feature.Vector(new
+OpenLayers.Geometry.Point(selectedFeature.geometry.getBounds().getCenterLonLat().lon
+, selectedFeature.geometry.getBounds().getCenterLonLat().lat));
+                var MarkerLabel= document.getElementById("Marker
+Label").value;
+                var MarkerIcon= document.getElementById("Icon").value;
+                myMarker.attributes = {
+                                        name: MarkerLabel,
+                                icon: "../img/" + MarkerIcon + ".png",
+                                radius:10
+                                };
+                features.push(myMarker);
+                layer.addFeatures(features);
+                }
+    }
+//----------Nor being used really------------
+    function toggleControl(element) {
+            for(key in controls) {
+                var control = controls[key];
+                if(element.value == key && element.checked) {
+                    control.activate();
+                } else {
+                    control.deactivate();
+                }
+            }
+        }
+
+    </script>
+    </head>
+    <body onload="init()">
+        <h1 id="title">Click Event Example with Custom Marker</h1>
+
+        <div id="tags">
+        </div>
+
+        <p id="shortdesc">
+            This example shows the use of the click handler and
+getLonLatFromViewPortPx functions to trigger events on mouse click.It also
+shows how to add a custom marker with custom Icon
+
+        </p>
+
+        <div id="map" class="smallmap"></div>
+
+        <div id="docs">
+                <input type="radio" name="type" value="none" id="noneToggle"
+                       onclick="toggleControl(this);" checked="checked" />
+                <label for="noneToggle">navigate</label>
+
+                <input type="radio" name="type" value="point"
+id="pointToggle" onclick="DrawFeratures();" />
+                <label for="pointToggle">draw point</label>
+            <label for="Marker Label"> -Label</label>
+                <input id="Marker Label" type="text" size="5" maxlength="5"
+                       name="Marker Label" value="label" onchange="update()"
+/>
+
+         <label for="Icon">Icon</label>
+            <select name="Icon" id="Icon">
+                <option value="marker"
+selected="selected">marker-red</option>
+                <option value="marker-blue">marker-blue</option>
+                <option value="marker-gold">marker-gold</option>
+                <option value="marker-green">marker-green</option>
+            </select>
+        <button onclick="DelMarker();">Delete</button>
+        <button onclick="EditMarker();">Edit</button><br />
+
+        </div>
+    <div id="status"></div>
+    </body>
+</html>

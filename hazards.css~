@@ -1,6 +1,50 @@
 body{
 	overflow:hidden;
 }
+
+input[type=checkbox] + label {
+  color:#f00 ;
+  font-style: italic;
+} 
+input[type=checkbox]:checked + label {
+  color: #ffffff;
+  font-style: normal;
+}
+
+
+.olControlDelete {
+     background-image: url("help.png"); 
+     background-repeat:no-repeat;
+     background-attachment:fixed;
+     background-position:center; 
+                     }
+                     
+                     
+.olControlLayerSwitcher
+    {
+        position: absolute;
+        top: 25px;
+        right: 0;
+        width: 20em;
+        font-family: sans-serif;
+        font-weight: bold;
+        margin-top: 3px;
+        margin-left: 3px;
+        margin-bottom: 3px;
+        font-size: smaller;
+        color: white;
+        background-color: transparent;
+        z-index: 10000;
+    }
+    .olControlLayerSwitcher .layersDiv
+    {
+        padding-top: 5px;
+        padding-left: 10px;
+        padding-bottom: 5px;
+        padding-right: 10px;
+        background-color: #CCCCCC;
+    }
+    
 .menu{
 	height:25%;
 	width: 100%;
@@ -46,15 +90,15 @@ div.modal-body{
 }
 /*edit panels css*/
 div.editPanelFlash{
-	bottom: 0px;
-	left:120px;
+	top: 110px;
+	right:20px;
 	position:absolute;
 }
 	.editPanelFlash div{
-		width: 22px;
-		height: 22px;
-		border: thin solid black;
-		background: #1389ba;
+		width: 25px;
+		height: 25px;
+		/*border: thin solid black;*/
+		background-image: url("trash3.png");
 		margin-top: 10px;
 	}
 
@@ -67,7 +111,7 @@ div.editPanelCoastal{
 		width: 22px;
 		height: 22px;
 		border: thin solid black;
-		background: blue;
+		background: #89ba13;
 		margin-top: 10px;
 	}
 
@@ -80,7 +124,7 @@ div.editPanelUrban{
 		width: 22px;
 		height: 22px;
 		border: thin solid black;
-		background: white;
+		background: #ba1389;
 		margin-top: 10px;
 	}
 	
@@ -94,7 +138,7 @@ div.editPanelRiver{
 		width: 22px;
 		height: 22px;
 		border: thin solid black;
-		background: black;
+		background: #e46e1a;
 		margin-top: 10px;
 	}
 	
@@ -108,7 +152,7 @@ div.editPanelPond{
 		width: 22px;
 		height: 22px;
 		border: thin solid black;
-		background: yellow;
+		background: #3c1f3c;
 		margin-top: 10px;
 	}
 
@@ -121,7 +165,7 @@ div.editPanelLandslide{
 		width: 22px;
 		height: 22px;
 		border: thin solid black;
-		background: gray;
+		background: #ffb400;
 		margin-top: 10px;
 	}
 
@@ -135,7 +179,7 @@ div.editPanelFault{
 		width: 22px;
 		height: 22px;
 		border: thin solid black;
-		background: red;
+		background: #b26662;
 		margin-top: 10px;
 	}
 
@@ -149,7 +193,7 @@ div.editPanelVolcanic{
 		width: 22px;
 		height: 22px;
 		border: thin solid black;
-		background: blue;
+		background: #b00004;
 		margin-top: 10px;
 	}
 
@@ -163,7 +207,7 @@ div.editPanelTsunami{
 		width: 22px;
 		height: 22px;
 		border: thin solid black;
-		background: yellow;
+		background: #c1e2ea;
 		margin-top: 10px;
 	}
 

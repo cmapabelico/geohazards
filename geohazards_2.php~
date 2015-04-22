@@ -114,10 +114,11 @@
  
     <script src="geohazards.js"></script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="bootstrap2/dist/js/bootstrap-select.min.js"></script>
+    
     
 </head>
  
@@ -191,11 +192,11 @@
         			</td>
         		</tr>
         		<tr>
-        			<!--<td>
+        			<td>
         				<button type="button" class="btn btn-danger btn-lg" id="remove" style="width:190px;" data-toggle="modal" data-target="#layerModal">
   							<span class="glyphicon glyphicon-fire" aria-hidden="true"></span>Remove Feature
 						</button>
-        			</td>-->
+        			</td>
         			<td>
         				<button type="button" class="btn btn-primary btn-lg" style="width:190px;" id="logout">
                  			<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout
@@ -206,19 +207,11 @@
         </div>
        
     </div>
-    <p id="container1"><?php echo $ff_feature; ?></p>
-    <p id="container2"><?php echo $cf_feature; ?></p>
-    <p id="container3"><?php echo $uf_feature; ?></p>
-    <p id="container4"><?php echo $fl_feature; ?></p>
-    <p id="container5"><?php echo $pl_feature; ?></p>
-    <p id="container6"><?php echo $ll_feature; ?></p>
-    <p id="container7"><?php echo $fa_feature; ?></p>
-    <p id="container8"><?php echo $vol_feature; ?></p>
-    <p id="container9"><?php echo $tsu_feature; ?></p>
+    
       
     
     
-     <div class="modal fade" id="layerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+     <div class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" id="layers">
     <div class="modal-content">
       <div class="modal-header">
@@ -228,7 +221,16 @@
       <!--<form name="form1" method="post" action="geohazards_2.php">-->
       <div class="modal-body">
        
-        <input type="radio" name="hazardLayerOptions" id="flashFlood" value="flashFlood"> Flashflood Layer <br/>
+       <p id="container1"><?php echo $ff_feature; ?></p>
+    <p id="container2"><?php echo $cf_feature; ?></p>
+    <p id="container3"><?php echo $uf_feature; ?></p>
+    <p id="container4"><?php echo $fl_feature; ?></p>
+    <p id="container5"><?php echo $pl_feature; ?></p>
+    <p id="container6"><?php echo $ll_feature; ?></p>
+    <p id="container7"><?php echo $fa_feature; ?></p>
+    <p id="container8"><?php echo $vol_feature; ?></p>
+    <p id="container9"><?php echo $tsu_feature; ?></p>
+       <!-- <input type="radio" name="hazardLayerOptions" id="flashFlood" value="flashFlood"> Flashflood Layer <br/>
         <input type="radio" name="hazardLayerOptions" id="coastalFlood" value="coastalFlood"> Coastal flood Layer <br/>
    	<input type="radio" name="hazardLayerOptions" id="urbanFlood" value="urbanFlood"> Urban flood Layer <br/>
         <input type="radio" name="hazardLayerOptions" id="riverFlood" value="riverFlood"> River flood Layer <br/>
@@ -237,7 +239,34 @@
         <input type="radio" name="hazardLayerOptions" id="faults" value="faults"> Faults Layer <br/>
         <input type="radio" name="hazardLayerOptions" id="volcanic" value="volcanic"> Volcanic Layer <br/>
         <input type="radio" name="hazardLayerOptions" id="tsunami" value="tsunami"> Tsunami Layer
-        
+        -->
+      </div>
+     <!-- <div class="modal-footer">
+        <input type="button" class="btn btn-primary btn-lg" value="Continue" onclick="removeFeature();" >
+      </div>-->
+     <!-- </form>-->
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="layerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" id="layers">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h2 class="modal-title" id="myModalLabel">Choose Layer</h4>
+      </div>
+      <!--<form name="form1" method="post" action="geohazards_2.php">-->
+      <div class="modal-body">
+      	 <input type="radio" name="hazardLayerOptions" id="flashFlood" value="flashFlood"> Flashflood Layer <br/>
+        <input type="radio" name="hazardLayerOptions" id="coastalFlood" value="coastalFlood"> Coastal flood Layer <br/>
+   	<input type="radio" name="hazardLayerOptions" id="urbanFlood" value="urbanFlood"> Urban flood Layer <br/>
+        <input type="radio" name="hazardLayerOptions" id="riverFlood" value="riverFlood"> River flood Layer <br/>
+        <input type="radio" name="hazardLayerOptions" id="pondFlood" value="pondFlood"> Pond flood Layer <br/>	
+        <input type="radio" name="hazardLayerOptions" id="landslide" value="landslide"> Landslide Layer <br/>
+        <input type="radio" name="hazardLayerOptions" id="faults" value="faults"> Faults Layer <br/>
+        <input type="radio" name="hazardLayerOptions" id="volcanic" value="volcanic"> Volcanic Layer <br/>
+        <input type="radio" name="hazardLayerOptions" id="tsunami" value="tsunami"> Tsunami Layer
       </div>
      <!-- <div class="modal-footer">
         <input type="button" class="btn btn-primary btn-lg" value="Continue" onclick="removeFeature();" >
