@@ -469,7 +469,7 @@
 		ll_delete: new DeleteFeature(landslideLayer,{title:'Delete Landslide  Feature'}), 
 		fa_delete: new DeleteFeature(faultsLayer,{title:'Delete Faults Feature'}),
 		vol_delete: new DeleteFeature(volcanicLayer,{title:'Delete Volcanic Feature'}),  
-		tsu_delete: new DeleteFeature(tsunamiLayer,{title:'Delete Tsunami Feature'}) 
+		tsu_delete: new DeleteFeature(tsunamiLayer,{title:'Delete Tsunami Feature'}), 
 	}
 	
 	for(var key in deleteControls){
@@ -713,11 +713,15 @@
         		key = "vol_delete";
         	}else if(document.getElementById("tsunami").checked){
         		key = "tsu_delete";
+        	}else if(document.getElementById("none").checked){
+        		control.deactivate();
         	}
         	
         	
         	control = deleteControls[key];
         	control.activate();
+        	
+        	
         }
 
         function toggleControl(element) {

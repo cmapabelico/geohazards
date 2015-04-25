@@ -218,7 +218,6 @@
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h2 class="modal-title" id="myModalLabel">Choose Layer</h4>
       </div>
-      <!--<form name="form1" method="post" action="geohazards_2.php">-->
       <div class="modal-body">
        
        <p id="container1"><?php echo $ff_feature; ?></p>
@@ -230,21 +229,7 @@
     <p id="container7"><?php echo $fa_feature; ?></p>
     <p id="container8"><?php echo $vol_feature; ?></p>
     <p id="container9"><?php echo $tsu_feature; ?></p>
-       <!-- <input type="radio" name="hazardLayerOptions" id="flashFlood" value="flashFlood"> Flashflood Layer <br/>
-        <input type="radio" name="hazardLayerOptions" id="coastalFlood" value="coastalFlood"> Coastal flood Layer <br/>
-   	<input type="radio" name="hazardLayerOptions" id="urbanFlood" value="urbanFlood"> Urban flood Layer <br/>
-        <input type="radio" name="hazardLayerOptions" id="riverFlood" value="riverFlood"> River flood Layer <br/>
-        <input type="radio" name="hazardLayerOptions" id="pondFlood" value="pondFlood"> Pond flood Layer <br/>	
-        <input type="radio" name="hazardLayerOptions" id="landslide" value="landslide"> Landslide Layer <br/>
-        <input type="radio" name="hazardLayerOptions" id="faults" value="faults"> Faults Layer <br/>
-        <input type="radio" name="hazardLayerOptions" id="volcanic" value="volcanic"> Volcanic Layer <br/>
-        <input type="radio" name="hazardLayerOptions" id="tsunami" value="tsunami"> Tsunami Layer
-        -->
       </div>
-     <!-- <div class="modal-footer">
-        <input type="button" class="btn btn-primary btn-lg" value="Continue" onclick="removeFeature();" >
-      </div>-->
-     <!-- </form>-->
     </div>
   </div>
 </div>
@@ -256,22 +241,31 @@
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h2 class="modal-title" id="myModalLabel">Choose Layer</h4>
       </div>
-      <!--<form name="form1" method="post" action="geohazards_2.php">-->
       <div class="modal-body">
-      	 <input type="radio" name="hazardLayerOptions" id="flashFlood" value="flashFlood"> Flashflood Layer <br/>
-        <input type="radio" name="hazardLayerOptions" id="coastalFlood" value="coastalFlood"> Coastal flood Layer <br/>
-   	<input type="radio" name="hazardLayerOptions" id="urbanFlood" value="urbanFlood"> Urban flood Layer <br/>
-        <input type="radio" name="hazardLayerOptions" id="riverFlood" value="riverFlood"> River flood Layer <br/>
-        <input type="radio" name="hazardLayerOptions" id="pondFlood" value="pondFlood"> Pond flood Layer <br/>	
-        <input type="radio" name="hazardLayerOptions" id="landslide" value="landslide"> Landslide Layer <br/>
-        <input type="radio" name="hazardLayerOptions" id="faults" value="faults"> Faults Layer <br/>
-        <input type="radio" name="hazardLayerOptions" id="volcanic" value="volcanic"> Volcanic Layer <br/>
-        <input type="radio" name="hazardLayerOptions" id="tsunami" value="tsunami"> Tsunami Layer
+      	 <input type="radio" name="hazardLayerOptions" class="removeToggle" id="flashFlood" value="flashFlood">
+      	 	<label for="flashFlood" class="removeLabel"> Flashflood Layer</label> <br/>
+        <input type="radio" name="hazardLayerOptions" class="removeToggle" id="coastalFlood" value="coastalFlood">
+        	<label for="coastalFlood" class="removeLabel"> Coastal flood Layer</label> <br/>
+   	<input type="radio" name="hazardLayerOptions" class="removeToggle" id="urbanFlood" value="urbanFlood"> 
+   		<label for="urbanFlood" class="removeLabel">Urban flood Layer</label> <br/>
+        <input type="radio" name="hazardLayerOptions" class="removeToggle" id="riverFlood" value="riverFlood">
+        	<label for="riverFlood" class="removeLabel"> River flood Layer </label><br/>
+        <input type="radio" name="hazardLayerOptions" class="removeToggle" id="pondFlood" value="pondFlood"> 
+        	<label for="pondFlood" class="removeLabel">Pond flood Layer</label> <br/>	
+        <input type="radio" name="hazardLayerOptions" class="removeToggle" id="landslide" value="landslide"> 
+        	<label for="landslide" class="removeLabel">Landslide Layer</label> <br/>
+        <input type="radio" name="hazardLayerOptions" class="removeToggle" id="faults" value="faults">
+        	<label for="faults" class="removeLabel"> Faults Layer</label> <br/>
+        <input type="radio" name="hazardLayerOptions" class="removeToggle" id="volcanic" value="volcanic"> 
+        	<label for="volcanic" class="removeLabel">Volcanic Layer</label> <br/>
+        <input type="radio" name="hazardLayerOptions" class="removeToggle" id="tsunami" value="tsunami"> 
+        	<label for="tsunami" class="removeLabel">Tsunami Layer</label> <br />
+        <input type="radio" name="hazardLayerOptions" class="removeToggle" id="none" value="none"> 
+        	<label for="none" class="removeLabel">None</label>
       </div>
-     <!-- <div class="modal-footer">
-        <input type="button" class="btn btn-primary btn-lg" value="Continue" onclick="removeFeature();" >
-      </div>-->
-     <!-- </form>-->
+      <div class="modal-footer">
+        <input type="button" class="btn btn-primary btn-lg" value="Continue" data-dismiss="modal" onclick="deleteFromMap();" >
+      </div>
     </div>
   </div>
 </div>
