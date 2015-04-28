@@ -175,6 +175,7 @@
 
 
             // This is the end of the layer
+//=======================================================================================================================
             //Declaration of vector layers holding hazard data
             var flashFloodLayer = new OpenLayers.Layer.Vector("Flash Flood Layer", {
                 styleMap:ff_style,
@@ -188,7 +189,7 @@
                     })
                 })
             });
-//=======================================================================================================================
+
 
             var coastalFloodLayer = new OpenLayers.Layer.Vector("Coastal Flood Layer", {
                 styleMap:cf_style,
@@ -625,26 +626,35 @@
             	}
         	
         	if(document.getElementById("flashFlood").checked){
-        		//alert(document.getElementById("flashFlood").value);
         		key = "ff_delete";
+        		document.getElementById("deleteNotice").value = "Flashflood layer";
         	}else if(document.getElementById("coastalFlood").checked){
         		key = "cf_delete";
+        		document.getElementById("deleteNotice").value = "Coastal flood layer";
         	}else if(document.getElementById("urbanFlood").checked){
         		key = "uf_delete";
+        		document.getElementById("deleteNotice").value = "Urban flood layer";
         	}else if(document.getElementById("riverFlood").checked){
         		key = "fl_delete";
+        		document.getElementById("deleteNotice").value = "River flood layer";
         	}else if(document.getElementById("pondFlood").checked){
         		key = "pl_delete";
+        		document.getElementById("deleteNotice").value = "Pond flood layer";
         	}else if(document.getElementById("landslide").checked){
         		key = "ll_delete";
+        		document.getElementById("deleteNotice").value = "Landslide layer";
         	}else if(document.getElementById("faults").checked){
         		key = "fa_delete";
+        		document.getElementById("deleteNotice").value = "Fault layer";
         	}else if(document.getElementById("volcanic").checked){
         		key = "vol_delete";
+        		document.getElementById("deleteNotice").value = "Volcanic layer";
         	}else if(document.getElementById("tsunami").checked){
         		key = "tsu_delete";
+        		document.getElementById("deleteNotice").value = "Tsunami layer";
         	}else if(document.getElementById("none").checked){
         		control.deactivate();
+        		document.getElementById("deleteNotice").value = "none toggled";
         	}
         	
         	

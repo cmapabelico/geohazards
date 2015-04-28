@@ -17,7 +17,7 @@
     /* Loads stored json string from the database
      * from the tables, then clears the content of the tables;
      */
-    if($_SESSION['loadflag'] == 0){
+  
         $load_data = "SELECT flashflood_data, coastal_data, urban_data, fluvial_data, pluvial_data, landslide_data, fault_data, volcanic_data, tsunami_data FROM hazard_data WHERE hazard_id = 1";
         $sql_1 = pg_query($conn, $load_data); 
         if(!$sql_1){
@@ -37,7 +37,7 @@
         }
 
         $_SESSION['loadflag'] = 1;
-    }
+  
    	
  
    $ff = $_POST['ff'];
@@ -98,7 +98,6 @@
  ?>
 <head>
     <title>Geohazards layer</title>
-    <!--<link rel="stylesheet" href="style.css" type="text/css" />-->
     <link rel="stylesheet" type="text/css" href="hazards.css">
     <!-- Bootstrap -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -201,6 +200,11 @@
         				<button type="button" class="btn btn-primary btn-lg" style="width:190px;" id="logout">
                  			<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout
             			</button>
+        			</td>
+        		</tr>
+        		<tr>
+        			<td>
+        				<input type="text" id="deleteNotice" value="none toggled"/>
         			</td>
         		</tr>
         	</table>

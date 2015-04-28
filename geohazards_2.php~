@@ -17,7 +17,7 @@
     /* Loads stored json string from the database
      * from the tables, then clears the content of the tables;
      */
-    if($_SESSION['loadflag'] == 0){
+  
         $load_data = "SELECT flashflood_data, coastal_data, urban_data, fluvial_data, pluvial_data, landslide_data, fault_data, volcanic_data, tsunami_data FROM hazard_data WHERE hazard_id = 1";
         $sql_1 = pg_query($conn, $load_data); 
         if(!$sql_1){
@@ -37,7 +37,7 @@
         }
 
         $_SESSION['loadflag'] = 1;
-    }
+  
    	
  
    $ff = $_POST['ff'];
@@ -98,7 +98,6 @@
  ?>
 <head>
     <title>Geohazards layer</title>
-    <!--<link rel="stylesheet" href="style.css" type="text/css" />-->
     <link rel="stylesheet" type="text/css" href="hazards.css">
     <!-- Bootstrap -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -203,6 +202,11 @@
             			</button>
         			</td>
         		</tr>
+        		<tr>
+        			<td>
+        				<input type="text" id="deleteNotice" value="none toggled"/>
+        			</td>
+        		</tr>
         	</table>
         </div>
        
@@ -244,22 +248,31 @@
       <div class="modal-body">
       	 <input type="radio" name="hazardLayerOptions" class="removeToggle" id="flashFlood" value="flashFlood">
       	 	<label for="flashFlood" class="removeLabel"> Flashflood Layer</label> <br/>
+      	 	
         <input type="radio" name="hazardLayerOptions" class="removeToggle" id="coastalFlood" value="coastalFlood">
         	<label for="coastalFlood" class="removeLabel"> Coastal flood Layer</label> <br/>
+        	
    	<input type="radio" name="hazardLayerOptions" class="removeToggle" id="urbanFlood" value="urbanFlood"> 
    		<label for="urbanFlood" class="removeLabel">Urban flood Layer</label> <br/>
+   		
         <input type="radio" name="hazardLayerOptions" class="removeToggle" id="riverFlood" value="riverFlood">
         	<label for="riverFlood" class="removeLabel"> River flood Layer </label><br/>
+        	
         <input type="radio" name="hazardLayerOptions" class="removeToggle" id="pondFlood" value="pondFlood"> 
-        	<label for="pondFlood" class="removeLabel">Pond flood Layer</label> <br/>	
+        	<label for="pondFlood" class="removeLabel">Pond flood Layer</label> <br/>
+        		
         <input type="radio" name="hazardLayerOptions" class="removeToggle" id="landslide" value="landslide"> 
         	<label for="landslide" class="removeLabel">Landslide Layer</label> <br/>
+        	
         <input type="radio" name="hazardLayerOptions" class="removeToggle" id="faults" value="faults">
         	<label for="faults" class="removeLabel"> Faults Layer</label> <br/>
+        	
         <input type="radio" name="hazardLayerOptions" class="removeToggle" id="volcanic" value="volcanic"> 
         	<label for="volcanic" class="removeLabel">Volcanic Layer</label> <br/>
+        	
         <input type="radio" name="hazardLayerOptions" class="removeToggle" id="tsunami" value="tsunami"> 
         	<label for="tsunami" class="removeLabel">Tsunami Layer</label> <br />
+        	
         <input type="radio" name="hazardLayerOptions" class="removeToggle" id="none" value="none"> 
         	<label for="none" class="removeLabel">None</label>
       </div>
