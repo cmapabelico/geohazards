@@ -17,7 +17,7 @@
     /* Loads stored json string from the database
      * from the tables, then clears the content of the tables;
      */
-    if($_SESSION['loadflag'] == 0){
+  
         $load_data = "SELECT flashflood_data, coastal_data, urban_data, fluvial_data, pluvial_data, landslide_data, fault_data, volcanic_data, tsunami_data FROM hazard_data WHERE hazard_id = 1";
         $sql_1 = pg_query($conn, $load_data); 
         if(!$sql_1){
@@ -37,7 +37,7 @@
         }
 
         $_SESSION['loadflag'] = 1;
-    }
+  
    	
  
    $ff = $_POST['ff'];
@@ -49,6 +49,7 @@
    $fa = $_POST['fa'];
    $vol = $_POST['vol'];
    $tsu = $_POST['tsu'];
+   $layer = $_POST['1'];
 
    $ffVar = strcmp($ff, "{\"type\":\"FeatureCollection\",\"features\":[]}");
    $cfVar = strcmp($cf, "{\"type\":\"FeatureCollection\",\"features\":[]}");
@@ -111,13 +112,18 @@
     <script src="OpenStreetMap.js"></script>
     <script src="geohazards.js"></script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<<<<<<< HEAD
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+=======
+    <script src="jquery.min.js"></script>
+>>>>>>> develop
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="bootstrap2/dist/js/bootstrap-select.min.js"></script>
     <!-- To improve editing by separate and add delete and custom tools and allows undo by <esc-key> -->
     <script src="OL_Ragbag/lib/Ragbag/Control/ModifyFeature-tools.js"></script>
  	
+    
     
 </head>
  
@@ -197,9 +203,13 @@
         		<tr>
         			<td>
 <<<<<<< HEAD
+<<<<<<< HEAD
         				<button type="button" class="btn btn-danger btn-lg" id="remove" style="width:190px;" data-toggle="button" aria-pressed="false" autocomplete="off">
 =======
         				<button type="button" class="btn btn-danger btn-lg" id="remove" style="width:190px;" onclick="removeFeature();">
+>>>>>>> develop
+=======
+        				<button type="button" class="btn btn-danger btn-lg" id="remove" style="width:190px;" data-toggle="modal" data-target="#layerModal">
 >>>>>>> develop
   							<span class="glyphicon glyphicon-fire" aria-hidden="true"></span>Remove Feature
 						</button>
@@ -208,6 +218,11 @@
         				<button type="button" class="btn btn-primary btn-lg" style="width:190px;" id="logout">
                  			<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout
             			</button>
+        			</td>
+        		</tr>
+        		<tr>
+        			<td>
+        				<input type="text" id="deleteNotice" value="none toggled"/>
         			</td>
         		</tr>
         	</table>
@@ -221,7 +236,20 @@
         </div>
        
     </div>
-    <p id="container1"><?php echo $ff_feature; ?></p>
+    
+      
+    
+    
+     <div class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" id="layers">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h2 class="modal-title" id="myModalLabel">Choose Layer</h4>
+      </div>
+      <div class="modal-body">
+       
+       <p id="container1"><?php echo $ff_feature; ?></p>
     <p id="container2"><?php echo $cf_feature; ?></p>
     <p id="container3"><?php echo $uf_feature; ?></p>
     <p id="container4"><?php echo $fl_feature; ?></p>
@@ -230,7 +258,59 @@
     <p id="container7"><?php echo $fa_feature; ?></p>
     <p id="container8"><?php echo $vol_feature; ?></p>
     <p id="container9"><?php echo $tsu_feature; ?></p>
+<<<<<<< HEAD
     
+=======
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="layerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" id="layers">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h2 class="modal-title" id="myModalLabel">Choose Layer</h4>
+      </div>
+      <div class="modal-body">
+      	 <input type="radio" name="hazardLayerOptions" class="removeToggle" id="flashFlood" value="flashFlood">
+      	 	<label for="flashFlood" class="removeLabel"> Flashflood Layer</label> <br/>
+      	 	
+        <input type="radio" name="hazardLayerOptions" class="removeToggle" id="coastalFlood" value="coastalFlood">
+        	<label for="coastalFlood" class="removeLabel"> Coastal flood Layer</label> <br/>
+        	
+   	<input type="radio" name="hazardLayerOptions" class="removeToggle" id="urbanFlood" value="urbanFlood"> 
+   		<label for="urbanFlood" class="removeLabel">Urban flood Layer</label> <br/>
+   		
+        <input type="radio" name="hazardLayerOptions" class="removeToggle" id="riverFlood" value="riverFlood">
+        	<label for="riverFlood" class="removeLabel"> River flood Layer </label><br/>
+        	
+        <input type="radio" name="hazardLayerOptions" class="removeToggle" id="pondFlood" value="pondFlood"> 
+        	<label for="pondFlood" class="removeLabel">Pond flood Layer</label> <br/>
+        		
+        <input type="radio" name="hazardLayerOptions" class="removeToggle" id="landslide" value="landslide"> 
+        	<label for="landslide" class="removeLabel">Landslide Layer</label> <br/>
+        	
+        <input type="radio" name="hazardLayerOptions" class="removeToggle" id="faults" value="faults">
+        	<label for="faults" class="removeLabel"> Faults Layer</label> <br/>
+        	
+        <input type="radio" name="hazardLayerOptions" class="removeToggle" id="volcanic" value="volcanic"> 
+        	<label for="volcanic" class="removeLabel">Volcanic Layer</label> <br/>
+        	
+        <input type="radio" name="hazardLayerOptions" class="removeToggle" id="tsunami" value="tsunami"> 
+        	<label for="tsunami" class="removeLabel">Tsunami Layer</label> <br />
+        	
+        <input type="radio" name="hazardLayerOptions" class="removeToggle" id="none" value="none"> 
+        	<label for="none" class="removeLabel">None</label>
+      </div>
+      <div class="modal-footer">
+        <input type="button" class="btn btn-primary btn-lg" value="Continue" data-dismiss="modal" onclick="deleteFromMap();" >
+      </div>
+    </div>
+  </div>
+</div>
+>>>>>>> develop
 </body>
  
 </html>

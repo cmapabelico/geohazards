@@ -388,7 +388,9 @@
         function getJSONdata(valid){
             var geoJSON = new OpenLayers.Format.GeoJSON(); 
             var features_ff = geoJSON.read(valid,"FeatureCollection");
-  
+            /*if(features_ff.contructor != Array){
+                features_ff = [features_ff];
+            }*/
             return features_ff;
         }
 

@@ -13,7 +13,7 @@
         /* round corners of layer switcher, and make it transparent */
         .olControlLayerSwitcher .layersDiv {
             border-radius: 10px 0 0 10px;
-            opacity: 1;
+            opacity: 0.75;
             filter: alpha(opacity=75);
         }
         </style>

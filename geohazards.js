@@ -3,7 +3,7 @@
         var lon=121.222115;
         var zoom=14;
  
-        var map, drawControls, selectControl, selectedFeature = null; //complex object of type OpenLayers.Map
+        var map, drawControls, selectControl, selectedFeature; //complex object of type OpenLayers.Map
         
 
         function onPopupExit(evt){
@@ -37,9 +37,6 @@
             feature.popup = null;
         }
         
-        function removeFeature(){
-        	alert(selectedFeature.id);
-        }
 
         //Initialise the 'map' object
         function init() {
@@ -187,6 +184,7 @@
 
 
             // This is the end of the layer
+//=======================================================================================================================
             //Declaration of vector layers holding hazard data
             var flashFloodLayer = new OpenLayers.Layer.Vector("Flash Flood Layer", {
                 styleMap:ff_style,
@@ -200,6 +198,7 @@
                     })
                 })
             });
+<<<<<<< HEAD
 //=======================================================================
     flashFloodLayer.events.on({
     'beforefeaturemodified': reportEvent,
@@ -213,6 +212,9 @@
     'sketchcomplete': reportEvent
 });
 //=======================================================================================================================
+=======
+
+>>>>>>> develop
 
             var coastalFloodLayer = new OpenLayers.Layer.Vector("Coastal Flood Layer", {
                 styleMap:cf_style,
@@ -408,67 +410,27 @@
             );
             map.addControl(selectControl);
             selectControl.activate();
-//=========================================================================================================================
-//Edit panels
-            var editPanelFlash = new OpenLayers.Control.Panel({displayClass: 'editPanelFlash'});
-            var editPanelCoastal = new OpenLayers.Control.Panel({displayClass: 'editPanelCoastal'});
-            var editPanelUrban = new OpenLayers.Control.Panel({displayClass: 'editPanelUrban'});
-            var editPanelRiver = new OpenLayers.Control.Panel({displayClass: 'editPanelRiver'});
-            var editPanelPond = new OpenLayers.Control.Panel({displayClass: 'editPanelPond'});
-            var editPanelLandslide = new OpenLayers.Control.Panel({displayClass: 'editPanelLandslide'});
-            var editPanelFault = new OpenLayers.Control.Panel({displayClass: 'editPanelFault'});
-            var editPanelVolcanic = new OpenLayers.Control.Panel({displayClass: 'editPanelVolcanic'});
-            var editPanelTsunami = new OpenLayers.Control.Panel({displayClass: 'editPanelTsunami'});
-
-
-//Adding controls to panels
-            editPanelFlash.addControls([
-                new OpenLayers.Control.ModifyFeature(flashFloodLayer,{ title:'Edit feature'}),
-                new DeleteFeature(flashFloodLayer,{title:'Delete Feature'})
-                
-            ]);
+          
             
-            editPanelCoastal.addControls([
-                new OpenLayers.Control.ModifyFeature(coastalFloodLayer,{ title:'Edit feature'}),
-                new DeleteFeature(coastalFloodLayer,{title:'Delete Feature'})                
-            ]);
-            
-            editPanelUrban.addControls([
-                new OpenLayers.Control.ModifyFeature(urbanFloodLayer,{ title:'Edit feature'}),
-                new DeleteFeature(urbanFloodLayer,{title:'Delete Feature'})                
-            ]);
-            
-            editPanelRiver.addControls([
-                new OpenLayers.Control.ModifyFeature(fluvialLayer,{ title:'Edit feature'}),
-                new DeleteFeature(fluvialLayer,{title:'Delete Feature'})               
-            ]);
-            
-            editPanelPond.addControls([
-                new OpenLayers.Control.ModifyFeature(pluvialLayer,{ title:'Edit feature'}),
-                new DeleteFeature(pluvialLayer,{title:'Delete Feature'})               
-            ]);
+//================================================================================================================
+//Declaration of delete controllers
 
-            editPanelLandslide.addControls([
-                new OpenLayers.Control.ModifyFeature(landslideLayer,{ title:'Edit feature'}),
-                new DeleteFeature(landslideLayer,{title:'Delete Feature'})               
-            ]);
-
-            editPanelFault.addControls([
-                new OpenLayers.Control.ModifyFeature(faultsLayer,{ title:'Edit feature'}),
-                new DeleteFeature(faultsLayer,{title:'Delete Feature'})               
-            ]);
-
-            editPanelVolcanic.addControls([
-                new OpenLayers.Control.ModifyFeature(volcanicLayer,{ title:'Edit feature'}),
-                new DeleteFeature(volcanicLayer,{title:'Delete Feature'})              
-            ]);
-
-            editPanelTsunami.addControls([
-                new OpenLayers.Control.ModifyFeature(tsunamiLayer,{ title:'Edit feature'}),
-                new DeleteFeature(tsunamiLayer,{title:'Delete Feature'})    
-            ]);
+	deleteControls = {
+		ff_delete: new DeleteFeature(flashFloodLayer, {title:'Delete Flashflood feature'}),
+		cf_delete: new DeleteFeature(coastalFloodLayer, {title:'Delete Coastal flood feature'}),
+		uf_delete: new DeleteFeature(urbanFloodLayer, {title:'Delete Urban flood feature'}),
+		fl_delete: new DeleteFeature(fluvialLayer,{title:'Delete River flood Feature'}),
+		pl_delete: new DeleteFeature(pluvialLayer,{title:'Delete Pond flood Feature'}),
+		ll_delete: new DeleteFeature(landslideLayer,{title:'Delete Landslide  Feature'}), 
+		fa_delete: new DeleteFeature(faultsLayer,{title:'Delete Faults Feature'}),
+		vol_delete: new DeleteFeature(volcanicLayer,{title:'Delete Volcanic Feature'}),  
+		tsu_delete: new DeleteFeature(tsunamiLayer,{title:'Delete Tsunami Feature'}), 
+	}
 	
-           // map.addControl(editPanelFlash);
+	for(var key in deleteControls){
+                map.addControl(deleteControls[key]);
+        }
+//================================================================================================================
             
 //Declaration of feature controllers
             drawControls = {
@@ -699,6 +661,54 @@
             control = drawControls[key];
             control.activate();
         }
+        
+        function deleteFromMap(){
+        	var layer = "";
+        	var control, key;
+        	
+        	for(key in deleteControls){
+                	var control = deleteControls[key];
+                	    control.deactivate();
+            	}
+        	
+        	if(document.getElementById("flashFlood").checked){
+        		key = "ff_delete";
+        		document.getElementById("deleteNotice").value = "Flashflood layer";
+        	}else if(document.getElementById("coastalFlood").checked){
+        		key = "cf_delete";
+        		document.getElementById("deleteNotice").value = "Coastal flood layer";
+        	}else if(document.getElementById("urbanFlood").checked){
+        		key = "uf_delete";
+        		document.getElementById("deleteNotice").value = "Urban flood layer";
+        	}else if(document.getElementById("riverFlood").checked){
+        		key = "fl_delete";
+        		document.getElementById("deleteNotice").value = "River flood layer";
+        	}else if(document.getElementById("pondFlood").checked){
+        		key = "pl_delete";
+        		document.getElementById("deleteNotice").value = "Pond flood layer";
+        	}else if(document.getElementById("landslide").checked){
+        		key = "ll_delete";
+        		document.getElementById("deleteNotice").value = "Landslide layer";
+        	}else if(document.getElementById("faults").checked){
+        		key = "fa_delete";
+        		document.getElementById("deleteNotice").value = "Fault layer";
+        	}else if(document.getElementById("volcanic").checked){
+        		key = "vol_delete";
+        		document.getElementById("deleteNotice").value = "Volcanic layer";
+        	}else if(document.getElementById("tsunami").checked){
+        		key = "tsu_delete";
+        		document.getElementById("deleteNotice").value = "Tsunami layer";
+        	}else if(document.getElementById("none").checked){
+        		control.deactivate();
+        		document.getElementById("deleteNotice").value = "none toggled";
+        	}
+        	
+        	
+        	control = deleteControls[key];
+        	control.activate();
+        	
+        	
+        }
 
         function toggleControl(element) {
                 for(key in drawControls) {
@@ -717,6 +727,8 @@
             
             return features_ff;
         }
+
+
 
 DeleteFeature = OpenLayers.Class(OpenLayers.Control,{
     initialize: function(layer, options){
